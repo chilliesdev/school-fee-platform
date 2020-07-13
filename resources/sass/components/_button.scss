@@ -1,0 +1,21 @@
+.btn{
+  border: #FFFFFF 0 solid;
+  border-radius: 4px;
+  color: #FFFFFF;
+  background: $secondary;
+  font-family: $text-font-family;
+  font-size: 14px;
+  padding-top: 11px;
+  font-weight: bold;
+  margin: 1rem 0;
+
+  &:hover{
+    color: #FFFFFF;
+    background: $primary;
+  }
+}
+
+.btn.disabled{
+  background: #00000080;
+  opacity: 1;
+}

@@ -1,0 +1,63 @@
+/* Resets */
+*,
+*::before,
+*::after{
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html{
+  font-family: $text-font-family;
+  color: $secondary;
+  font-size: $p;
+}
+
+a{
+  text-decoration: none;
+}
+
+ul{
+  list-style: none;
+}
+
+h1{
+  font-size: $h1;
+  font-family: $heading-font-family;
+}
+
+h2{
+  font-size: $h2;
+  font-family: $heading-font-family;
+}
+
+h3{
+  font-size: $h3;
+  font-family: $heading-font-family;
+}
+
+p{
+  font-size: $p;
+}
+
+img{
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+
+// body{
+//   background: $secondary;
+// }
+
+.container{
+  margin: auto;
+  width: 1080px;
+  padding: 0;
+}
+
+.row{
+  margin-right: 1.5rem;
+  margin-left: 1.5rem;
+  width: 100%;
+}

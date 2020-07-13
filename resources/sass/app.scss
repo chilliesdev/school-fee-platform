@@ -1,0 +1,28 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+// Presets
+@import 'presets';
+
+// Landing Page
+@import './public/header';
+@import './public/services';
+@import './public/payment';
+@import './public/footer';
+
+// Dashboard
+@import './dashboard/login';
+@import './dashboard/forgot_password';
+
+// Components
+@import './components/logo';
+@import './components/input';
+@import './components/button';
+@import './components/loading';
+@import './components/alert';

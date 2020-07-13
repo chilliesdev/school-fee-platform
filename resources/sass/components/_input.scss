@@ -1,0 +1,48 @@
+.input-group.lg{
+  flex-basis: 100%;
+}
+
+.input-group{
+  flex-basis: 48%;
+
+  .input-icon{
+    position: absolute;
+    top: 9px;
+    right: 20px;
+    font-size: 18px;
+    opacity: $input-opacity;
+    z-index: 1;
+  }
+
+  label{
+    display: block;
+    font-size: $p;
+    font-family: $text-font-family;
+    color: #FFFFFF;
+  }
+
+  .input-error{
+    border: 3px solid $red;
+  }
+
+  input{
+    width: 100%;
+    height: 3rem;
+    border: 3px solid $secondary;
+
+    &::placeholder{
+      font-weight: bolder;
+      padding-left: 1rem;
+      font-family: $text-font-family;
+      font-size: 14px;
+      color: $secondary;
+      opacity: $input-opacity;
+    }
+  }
+
+  input[type=checkbox]{
+   width: 14px; 
+   height: 14px;
+   margin: .3rem;
+  }
+}

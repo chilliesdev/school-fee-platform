@@ -1,0 +1,11 @@
+.error-message{
+  color: $red;
+  font-size: 11px;
+  display: block;
+  margin-bottom: 0rem;
+  width: 100%;
+  
+  span{
+    margin-right: .3rem;
+  }
+}

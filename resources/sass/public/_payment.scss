@@ -1,0 +1,52 @@
+$input-opacity: .44;
+// $placeholder-size: 18px;
+
+.payment{
+  background: linear-gradient(#00102258,#00102258),
+    url('/images/img2.jpg')
+    no-repeat;
+  background-size: cover;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  h2{
+    color: #FFFFFF;
+    font-weight: bold;
+    text-shadow: 0 2px #00000050;
+    margin: 2rem auto;
+    z-index: 1;
+
+    &::before{
+      content: "";
+      display: inline-block;
+      position: relative;
+      top: 1.3rem;
+      left: 3.4rem;
+      background: #CAF0F847;
+      height: 50px;
+      width: 50px;
+      border-radius: 50%;
+      z-index: -1;
+    }
+
+  }
+  
+  form{
+    display: flex;
+    justify-content: space-between;
+    flex-flow: wrap;
+    margin: 3rem auto;
+
+    label{
+      margin-top: .5rem;
+    }
+    
+    .btn{
+      flex-basis: 45%;
+      margin-top: 2.5rem;
+    }
+  }
+}
