@@ -11252,7 +11252,7 @@ footer ul li .social-icons span {
   background-position: right;
   height: 100vh;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 }
 
@@ -11264,6 +11264,7 @@ footer ul li .social-icons span {
   display: flex;
   align-items: center;
   box-shadow: 4px 4px #00000050;
+  margin-left: 5rem;
 }
 
 .login-container .card h2 {
@@ -11302,6 +11303,11 @@ footer ul li .social-icons span {
   text-align: center;
   width: 75%;
   margin: 1rem auto;
+}
+
+.sidebar {
+  width: 90px;
+  background: linear-gradient(to bottom, #4BCDE7, #006397);
 }
 
 .logo {
@@ -11404,12 +11410,6 @@ footer ul li .social-icons span {
   opacity: 0.44;
 }
 
-.input-group input[type=checkbox] {
-  width: 14px;
-  height: 14px;
-  margin: .3rem;
-}
-
 .btn {
   border: #FFFFFF 0 solid;
   border-radius: 4px;
@@ -11462,5 +11462,16 @@ footer ul li .social-icons span {
 
 .error-message span {
   margin-right: .3rem;
+}
+
+.input-group.checkbox {
+  margin-top: .5rem;
+}
+
+.input-group.checkbox input[type=checkbox] {
+  width: 14px;
+  height: 14px;
+  margin: .3rem;
+  margin-left: 0;
 }
 

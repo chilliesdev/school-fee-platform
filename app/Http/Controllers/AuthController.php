@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+// use Illuminate\Support\Facades\Auth;
 use App\User;
 
 class AuthController extends Controller
@@ -15,13 +16,23 @@ class AuthController extends Controller
         ]);
 
         if (!auth()->attempt($loginData)) {
-            return response(['message' => 'Invalid Credentials']);
+            return response()->json(['message' => 'Invalid Credentials'],401);
         }
 
         $accessToken = auth()->user()->createToken('authToken')->accessToken;
 
         return response([
             'access_token' => $accessToken
+        ]);
+    }
+
+    public function logout(Request $request) {
+        auth()->user()->tokens->each(function ($token, $key){
+            $token->delete();
+        });
+
+        return response()->json([
+            'message' => 'Loggout successfully'
         ]);
     }
 

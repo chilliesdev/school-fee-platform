@@ -12,5 +12,4 @@ require('./bootstrap');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-require('./public/Index.js');
-require('./dashboard/src');
+require('./src');

@@ -19,6 +19,7 @@
 // Dashboard
 @import './dashboard/login';
 @import './dashboard/forgot_password';
+@import './dashboard/sidebar';
 
 // Components
 @import './components/logo';
@@ -26,3 +27,4 @@
 @import './components/button';
 @import './components/loading';
 @import './components/alert';
+@import './components/check_box';

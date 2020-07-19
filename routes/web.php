@@ -13,10 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// FOR PUBLIC USERS ONLY
-Route::view('/', 'public');
-
-// FOR VENDORS ONLY
-Route::view('/vendor/{path?}', 'dashboard')
+Route::view('/{path?}', 'index')
     ->where('path','.*')
-    ->name('dashboard');
+    ->name('index');
