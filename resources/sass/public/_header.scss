@@ -48,7 +48,7 @@ header {
       justify-content: flex-start;
       
       li{
-        text-shadow: black;
+        text-shadow: 1px 1px 5px rgba(150, 150, 150, 1);
         display: inline;
         font-size: 15px;
         margin-right: 2rem;
@@ -69,7 +69,7 @@ header {
   }
 
   p{
-    font-size: 17px;
+    font-size: 15px;
   }
 
   .btn-group{
@@ -82,7 +82,7 @@ header {
       /* text-transform: uppercase; */
       border: #023579 solid 2px;
       border-radius: 6px;
-      font-size: $h3;
+      font-size: 14px;
     }
 
     .btn-primary{

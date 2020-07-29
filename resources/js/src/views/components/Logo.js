@@ -1,5 +1,6 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 export default function Logo({ size="lg" }) {
-  return <h1 className="logo"><a href="/vendor" className={size}>PayMySchoolFees</a></h1>
+  return <h1 className="logo"><Link to="/" className={size}>PayMySchoolFees</Link></h1>
 }

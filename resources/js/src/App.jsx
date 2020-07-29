@@ -32,6 +32,7 @@ function App({ history, accessToken }) {
       <Switch>
         <Route exact path="/login" component={Login} />
         <Route exact path="/logout" component={Logout} />
+        <Route exact path="/dashboard" component={Container} />
         <Route exact path="/" component={Home} />
       </Switch>
     </Router>

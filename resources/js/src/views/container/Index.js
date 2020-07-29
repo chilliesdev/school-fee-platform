@@ -22,13 +22,11 @@ const mapStateToProps = state => ({
 export default connect( mapStateToProps )(function Index({ accessToken, match }) {
 
   const loading = () => <Loading color="primary" size="lg"/>
-  console.log(`${match.url}/dashboard`)
-  console.log(match)
 
   return (
     <Switch>
-      <Route path={match.url} exact component={props => <h1>Home</h1>}/>
-      <Route path={`${match.url}/dashboard`} exact component={Dashboard} />
+      <Route path={`${match.url}`} exact component={Dashboard} />
+      <Route path={`${match.url}/test`} component={props => <h1>test</h1>} />
       {/* {routes.map((route, idx) => {
         return route.component
         ? <Route 

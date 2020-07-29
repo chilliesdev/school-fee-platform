@@ -20,4 +20,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('/login','AuthController@login');
 Route::middleware('auth:api')->get('/logout','AuthController@logout');
-Route::post('/register','AuthController@create');
+Route::post('/register','UsersController@create');
+
+// Payment routes
+Route::post('/pay', 'PaymentController@redirectToGateway');
+Route::get('/pay/constant', 'PaymentController@getPaymentConstant');

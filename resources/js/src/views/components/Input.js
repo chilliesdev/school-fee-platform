@@ -9,8 +9,7 @@ export default function Input ({
   type="text", 
   icon, 
   size = "", 
-  handleChange = null, 
-  value,
+  handleChange,
   name = null,
   error,
   disabled = false
@@ -22,15 +21,11 @@ export default function Input ({
           type={type} 
           name={name}
           placeholder={placeholder} 
-          onChange={handleChange 
-            ? e => handleChange(e.target.value,e.target.name)
-            : null
-          }
-          value={value}
-          className={error ? 'input-error' : null}
+          ref={handleChange}
+          // className={error ? 'input-error' : null}
           disabled={disabled}
         />
-        <span className="input-icon">{icon}</span>
+        {icon && <span className="input-icon">{icon}</span>}
         {error && <Alert 
           message={error}
           type="error"

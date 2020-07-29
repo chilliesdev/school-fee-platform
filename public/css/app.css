@@ -10972,7 +10972,7 @@ ul {
 }
 
 h1 {
-  font-size: 35px;
+  font-size: 32px;
   font-family: "Scada", sans-serif;
 }
 
@@ -11051,7 +11051,7 @@ header::after {
 }
 
 .container-fixed .navbar ul li {
-  text-shadow: black;
+  text-shadow: 1px 1px 5px #969696;
   display: inline;
   font-size: 15px;
   margin-right: 2rem;
@@ -11070,7 +11070,7 @@ header::after {
 }
 
 .texts p {
-  font-size: 17px;
+  font-size: 15px;
 }
 
 .texts .btn-group {
@@ -11084,7 +11084,7 @@ header::after {
   /* text-transform: uppercase; */
   border: #023579 solid 2px;
   border-radius: 6px;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .texts .btn-group .btn-primary {
@@ -11110,7 +11110,7 @@ header::after {
   width: 70%;
   text-align: center;
   font-family: "Montserrat", sans-serif;
-  text-shadow: 0 1px #00000050;
+  text-shadow: 1px 1px 5px #969696;
 }
 
 .services .card-group {
@@ -11167,7 +11167,7 @@ header::after {
 .payment h2 {
   color: #FFFFFF;
   font-weight: bold;
-  text-shadow: 0 2px #00000050;
+  text-shadow: 1px 1px 5px #969696;
   margin: 2rem auto;
   z-index: 1;
 }
@@ -11198,11 +11198,13 @@ header::after {
 
 .payment form .btn {
   flex-basis: 45%;
-  margin-top: 2.5rem;
+  margin-top: 32px;
+  margin-bottom: 3px;
+  height: 27px;
 }
 
 footer {
-  background: linear-gradient(#4BCDE760, #4BCDE760);
+  background: #00000095;
   width: 80%;
   color: #FFFFFF;
   margin-top: 4rem;
@@ -11219,10 +11221,9 @@ footer ul li {
 }
 
 footer ul li h3 {
-  text-transform: uppercase;
+  text-transform: capitalize;
   font-size: 18px;
   font-family: "Scada", sans-serif;
-  text-shadow: 0 1px #00000050;
 }
 
 footer ul li ul {
@@ -11231,9 +11232,7 @@ footer ul li ul {
 
 footer ul li .footer-texts {
   display: block;
-  font-size: 13px;
   font-family: "Montserrat", sans-serif;
-  text-shadow: 0 1px #00000050;
   margin-bottom: 1rem;
 }
 
@@ -11263,7 +11262,7 @@ footer ul li .social-icons span {
   border-radius: 4px;
   display: flex;
   align-items: center;
-  box-shadow: 4px 4px #00000050;
+  box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.75);
   margin-left: 5rem;
 }
 
@@ -11292,7 +11291,7 @@ footer ul li .social-icons span {
   display: block;
   text-transform: uppercase;
   width: 93%;
-  margin: 1.8rem 0;
+  margin: 1rem 0;
 }
 
 .login-container .card form a {
@@ -11312,7 +11311,7 @@ footer ul li .social-icons span {
 
 .logo {
   font-weight: bold;
-  text-shadow: 0 1px #00000050;
+  text-shadow: 1px 1px 5px #969696;
   font-size: 20px;
   margin-left: -20px;
   z-index: 1;
@@ -11453,9 +11452,9 @@ footer ul li .social-icons span {
 }
 
 .error-message {
-  color: #e3342f;
-  font-size: 11px;
   display: block;
+  font-size: 11px;
+  color: #e3342f;
   margin-bottom: 0rem;
   width: 100%;
 }
