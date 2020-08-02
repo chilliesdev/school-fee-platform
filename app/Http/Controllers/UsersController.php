@@ -5,17 +5,28 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 use App\User;
+use App\Fee;
 
 class UsersController extends Controller
 {
+    public function index() 
+    {
+        return response()->json(User::with('fees')->get());
+    }
+
     public function create()
     {
-        $validatedData = $this->validateRequest();
+        $validatedUser = $this->validateUser();
 
-        $validatedData['password'] = bcrypt(request()->password);
+        $validatedFees = $this->validateFee();
 
-        // return $validatedData;
-        $user = User::create($validatedData);
+        $validatedUser['password'] = bcrypt(request()->password);
+
+        $user = User::create($validatedUser);
+
+        $feesMappedToUser = $this->mapUserToFees($user,$validatedFees);
+
+        Fee::insert($feesMappedToUser);
 
         $this->storeImage($user);
 
@@ -26,7 +37,57 @@ class UsersController extends Controller
         ]);
     }
 
-    public function validateRequest() 
+    public function mapUserToFees($user,$fees)
+    {
+        foreach ($fees as &$row){
+            $row['user_id'] = $user['id'];
+        }
+
+        return $fees;
+    }
+
+    public function validateFee()
+    {
+        $allRequest = request()->all();
+        $fees = [];
+
+        function checkSuffix($currentKey,$prefix)
+        {
+            // extract and return the suffix eg. fee_1 return 1
+            $point = strlen($currentKey) - 1;
+            if (substr($currentKey,0,$point) === $prefix . '_'){
+
+                return substr($currentKey,$point,$point);
+            }
+
+            return false;
+        }
+
+        foreach ($allRequest as $key => &$value){
+            $suffix = checkSuffix($key,'name');
+            if ($suffix){
+                // if the suffix match add it to the request
+                request()->request->add(['name' => $allRequest['name_'.$suffix]]);
+            
+                request()->request->add(['amount' => $allRequest['amount_'.$suffix]]);
+            
+                // validate current fee and 
+                $result = request()->validate([
+                    'name' => 'sometimes',
+                    'amount' => 'sometimes|numeric'
+                ]);
+
+                if ($result !== end($fees) && count($result) === 2) {
+                    // Make sure it has not been added before and result has fee and amount 
+                    array_push($fees,$result);
+                }
+            }
+        }
+
+        return $fees;
+    }
+
+    public function validateUser() 
     {
         return request()->validate([
             'name' => 'required|max:55',
@@ -44,9 +105,9 @@ class UsersController extends Controller
                 'picture' => request()->picture->store('pictures','public'),
             ]);
 
-            Image::make(storage_path('app/public/pictures/'.request()->picture))
+            Image::make(public_path('storage/'.$user->picture))
                 ->resize(250, 300, function($constraint) {
-                        $constraint->aspectRatio();
+                    $constraint->aspectRatio();
                 })
                 ->save();
         }

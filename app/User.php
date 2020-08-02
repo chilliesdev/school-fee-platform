@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'picture', 'type'
     ];
 
     /**
@@ -37,4 +37,17 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function getTypeAttribute($attribute)
+    {
+        return [
+            0 => 'admin',
+            1 => 'school',
+        ][$attribute];
+    }
+
+    public function fees()
+    {
+        return $this->hasMany('App\Fee');
+    }
 }

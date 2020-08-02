@@ -4,6 +4,7 @@ import Logo from './Logo'
 import Loading from './Loading'
 import Alert from './Alert'
 import CheckBox from './CheckBox'
+import Select from './Select'
 
 export {
   Button,
@@ -12,4 +13,5 @@ export {
   Loading,
   Alert,
   CheckBox,
+  Select,
 }

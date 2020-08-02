@@ -12,7 +12,8 @@ export default function Input ({
   handleChange,
   name = null,
   error,
-  disabled = false
+  disabled = false,
+  value = null
 }) { 
   return (
       <div className={`input-group ${size}`}>
@@ -22,6 +23,7 @@ export default function Input ({
           name={name}
           placeholder={placeholder} 
           ref={handleChange}
+          // value={value ? value : ""}
           // className={error ? 'input-error' : null}
           disabled={disabled}
         />

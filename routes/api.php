@@ -25,3 +25,6 @@ Route::post('/register','UsersController@create');
 // Payment routes
 Route::post('/pay', 'PaymentController@redirectToGateway');
 Route::get('/pay/constant', 'PaymentController@getPaymentConstant');
+
+// Users
+Route::get('/users','UsersController@index');

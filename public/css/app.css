@@ -11190,6 +11190,7 @@ header::after {
   justify-content: space-between;
   flex-flow: wrap;
   margin: 3rem auto;
+  max-width: 80%;
 }
 
 .payment form label {
@@ -11472,5 +11473,17 @@ footer ul li .social-icons span {
   height: 14px;
   margin: .3rem;
   margin-left: 0;
+}
+
+select {
+  width: 100%;
+  height: 3rem;
+  border: 3px solid #006397;
+}
+
+select option {
+  font-weight: bolder;
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
 }
 

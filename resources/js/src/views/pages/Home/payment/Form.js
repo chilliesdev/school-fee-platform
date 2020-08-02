@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import axios from 'axios'
 
 // components
-import { Input, Button } from '../../../components'
+import { Input, Button, Select } from '../../../components'
 import ConfirmDialog from './ConfirmDialog'
 
 // icons
@@ -16,7 +16,9 @@ export default props => {
   const [ disabledButton, setDisabledButton ] = useState(true)
   const [paymentConst, setPaymentConst] = useState(null)
   const [openDialog, setOpenDialog] = useState(false)
-  const [paymentData, setPaymentData] = useState([])
+  const [allFormData, setAllFormData] = useState([])
+  const [selectedSchoolInfo, setSelectedSchoolInfo] = useState([])
+  const [selectedFee, setSelectedFee] = useState([])
 
   function checkAllErrors() {
     if (errors.school || errors.name || errors.class || errors.email) { return true }
@@ -64,28 +66,67 @@ export default props => {
     email: {
       required: true
     },
+    feeName: {
+      required: true
+    },
+    amount: {
+      required: true
+    },
   }
 
   const toggleDialog = () => setOpenDialog(!openDialog)
 
   function openConfirmDialogue(data) {
     toggleDialog()
-    setPaymentData(data)
+    setAllFormData(data)
   }
 
   function sendPaymentRequest() {
     console.log('paymentData')
   }
 
+  const handleOnSchoolSelect = e => {
+    console.log('selected')
+    let allSchools = paymentConst.schools
+    let selectedSchool = allSchools.filter(({ id }) => id === e.target.value)
+    setSelectedSchoolInfo(selectedSchool)
+  }
+  
+  const handleFeeSelect = e => {
+    let allFees = selectedSchoolInfo.fees
+    let selectedFee = allFees.filter(({ id }) => id === e.target.value)
+    setSelectedFee(selectedFee)
+  }
+
   return <>
     <form>
-      <Input
+      <Select
         placeholder="YOUR SCHOOL NAME"
         icon={<FaSearch/>}
         size="lg"
         name="school"
+        options={paymentConst ? paymentConst.schools : null}
         handleChange={formInput(inputRequirement.school)}
+        handleSelect={handleOnSchoolSelect}
         error={errors.school && errors.school.message}
+      />
+      <Select
+        placeholder="SELECT A FEE"
+        // icon={<FaSearch/>}
+        label="Fee"
+        name="feeName"
+        options={selectedSchoolInfo ? selectedSchoolInfo.fees : null}
+        handleChange={formInput(inputRequirement.feeName)}
+        handleSelect={handleFeeSelect}
+      />
+      <Input
+        label="Amount"
+        placeholder="NGN"
+        value={selectedFee ? selectedFee : null}
+        name="amount"
+        disabled={true}
+        handleChange={formInput(inputRequirement.name)}
+        // error={errors.name && errors.name.message}
       />
       <Input
         label="Full Name"

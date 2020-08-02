@@ -543,8 +543,11 @@ var assignWatchFields = (fieldValues, fieldName, watchFields, inputValue, isSing
         : value;
 };
 
-var skipValidation = ({ isOnBlur, isOnChange, isReValidateOnBlur, isReValidateOnChange, isBlurEvent, isSubmitted, }) => {
-    if (isSubmitted ? isReValidateOnBlur : isOnBlur) {
+var skipValidation = ({ isOnBlur, isOnChange, isReValidateOnBlur, isReValidateOnChange, isBlurEvent, isSubmitted, isOnAll, }) => {
+    if (isOnAll) {
+        return false;
+    }
+    else if (isSubmitted ? isReValidateOnBlur : isOnBlur) {
         return !isBlurEvent;
     }
     else if (isSubmitted ? isReValidateOnChange : isOnChange) {
@@ -637,7 +640,8 @@ function useForm({ mode = VALIDATION_MODE.onSubmit, reValidateMode = VALIDATION_
     const resolverRef = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])(resolver);
     const fieldArrayNamesRef = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])(new Set());
     const [, render] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])();
-    const { current: { isOnBlur, isOnSubmit, isOnChange, isOnAll }, } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])(modeChecker(mode));
+    const modeRef = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])(modeChecker(mode));
+    const { current: { isOnSubmit, isOnAll }, } = modeRef;
     const isValidateAllFieldCriteria = criteriaMode === VALIDATION_MODE.all;
     const readFormStateRef = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])({
         isDirty: !isProxyEnabled,
@@ -775,9 +779,11 @@ function useForm({ mode = VALIDATION_MODE.onSubmit, reValidateMode = VALIDATION_
     }, [executeSchemaOrResolverValidation, executeValidation]);
     const setInternalValues = Object(react__WEBPACK_IMPORTED_MODULE_0__["useCallback"])((name, value, { shouldDirty, shouldValidate }) => {
         getPath(name, value).forEach((fieldName) => {
+            const data = {};
             const field = fieldsRef.current[fieldName];
             if (field) {
-                setFieldValue(field, get({ [name]: value }, fieldName));
+                set(data, name, value);
+                setFieldValue(field, get(data, fieldName));
                 if (shouldDirty) {
                     setDirty(fieldName);
                 }
@@ -837,14 +843,9 @@ function useForm({ mode = VALIDATION_MODE.onSubmit, reValidateMode = VALIDATION_
             if (field) {
                 const isBlurEvent = type === EVENTS.BLUR;
                 const shouldSkipValidation = !isOnAll &&
-                    skipValidation({
-                        isOnChange,
-                        isOnBlur,
-                        isBlurEvent,
+                    skipValidation(Object.assign({ isBlurEvent,
                         isReValidateOnChange,
-                        isReValidateOnBlur,
-                        isSubmitted: isSubmittedRef.current,
-                    });
+                        isReValidateOnBlur, isSubmitted: isSubmittedRef.current }, modeRef.current));
                 let shouldRender = setDirty(name) || isFieldWatched(name);
                 if (isBlurEvent &&
                     !get(touchedFieldsRef.current, name) &&
@@ -885,14 +886,13 @@ function useForm({ mode = VALIDATION_MODE.onSubmit, reValidateMode = VALIDATION_
         }
         return getFieldsValues(fieldsRef, unmountFieldsStateRef);
     }
-    const validateResolver = Object(react__WEBPACK_IMPORTED_MODULE_0__["useCallback"])((values = {}) => {
-        resolverRef.current(Object.assign(Object.assign(Object.assign({}, defaultValuesRef.current), getValues()), values), contextRef.current, isValidateAllFieldCriteria).then(({ errors }) => {
-            const previousFormIsValid = isValidRef.current;
-            isValidRef.current = isEmptyObject(errors);
-            if (previousFormIsValid !== isValidRef.current) {
-                reRender();
-            }
-        });
+    const validateResolver = Object(react__WEBPACK_IMPORTED_MODULE_0__["useCallback"])(async (values = {}) => {
+        const { errors } = await resolverRef.current(Object.assign(Object.assign(Object.assign({}, defaultValuesRef.current), getValues()), values), contextRef.current, isValidateAllFieldCriteria);
+        const previousFormIsValid = isValidRef.current;
+        isValidRef.current = isEmptyObject(errors);
+        if (previousFormIsValid !== isValidRef.current) {
+            reRender();
+        }
     }, [isValidateAllFieldCriteria]);
     const removeFieldEventListener = Object(react__WEBPACK_IMPORTED_MODULE_0__["useCallback"])((field, forceDelete) => findRemovedFieldAndRemoveListener(fieldsRef, handleChangeRef.current, field, unmountFieldsStateRef, shouldUnregister, forceDelete), [shouldUnregister]);
     const removeFieldEventListenerAndRef = Object(react__WEBPACK_IMPORTED_MODULE_0__["useCallback"])((field, forceDelete) => {
@@ -1062,7 +1062,7 @@ function useForm({ mode = VALIDATION_MODE.onSubmit, reValidateMode = VALIDATION_
             e.persist();
         }
         let fieldErrors = {};
-        let fieldValues = getValues();
+        let fieldValues = getFieldsValues(fieldsRef, unmountFieldsStateRef);
         if (readFormStateRef.current.isSubmitting) {
             isSubmittingRef.current = true;
             reRender();
@@ -1111,7 +1111,6 @@ function useForm({ mode = VALIDATION_MODE.onSubmit, reValidateMode = VALIDATION_
         }
     }, [shouldFocusError, isValidateAllFieldCriteria]);
     const resetRefs = ({ errors, isDirty, isSubmitted, touched, isValid, submitCount, dirtyFields, }) => {
-        fieldsRef.current = {};
         if (!errors) {
             errorsRef.current = {};
         }
@@ -1158,6 +1157,7 @@ function useForm({ mode = VALIDATION_MODE.onSubmit, reValidateMode = VALIDATION_
                 }
             }
         }
+        fieldsRef.current = {};
         if (values) {
             defaultValuesRef.current = values;
             renderWatchedInputs('');
@@ -1214,14 +1214,10 @@ function useForm({ mode = VALIDATION_MODE.onSubmit, reValidateMode = VALIDATION_
             })
             : formState,
     };
-    const control = Object.assign(Object.assign(Object.assign({ removeFieldEventListener,
+    const control = Object.assign(Object.assign({ removeFieldEventListener,
         renderWatchedInputs,
         watchInternal,
-        reRender }, (resolver ? { validateSchemaIsValid: validateResolver } : {})), { mode: {
-            isOnBlur,
-            isOnSubmit,
-            isOnChange,
-        }, reValidateMode: {
+        reRender, mode: modeRef.current, reValidateMode: {
             isReValidateOnBlur,
             isReValidateOnChange,
         }, errorsRef,
@@ -1241,7 +1237,7 @@ function useForm({ mode = VALIDATION_MODE.onSubmit, reValidateMode = VALIDATION_
         isSubmittedRef,
         readFormStateRef,
         defaultValuesRef,
-        unmountFieldsStateRef }), commonProps);
+        unmountFieldsStateRef }, (resolver ? { validateSchemaIsValid: validateResolver } : {})), commonProps);
     return Object.assign({ watch,
         control,
         handleSubmit, reset: Object(react__WEBPACK_IMPORTED_MODULE_0__["useCallback"])(reset, []), clearErrors: Object(react__WEBPACK_IMPORTED_MODULE_0__["useCallback"])(clearErrors, []), setError: Object(react__WEBPACK_IMPORTED_MODULE_0__["useCallback"])(setError, []), errors: errorsRef.current }, commonProps);
@@ -1371,9 +1367,7 @@ const useFieldArray = ({ control, name, keyName = 'id', }) => {
     const [isDeleted, setIsDeleted] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false);
     const allFields = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])(fields);
     const isNameKey = isKey(name);
-    const getCurrentFieldsValues = () => watchFieldsRef.current.has(name)
-        ? get(getValues(), name).map((item, index) => (Object.assign(Object.assign({}, allFields.current[index]), item)))
-        : allFields.current;
+    const getCurrentFieldsValues = () => get(getValues() || {}, name, allFields.current).map((item, index) => (Object.assign(Object.assign({}, allFields.current[index]), item)));
     allFields.current = fields;
     if (isNameKey) {
         fieldArrayDefaultValues.current[name] = memoizedDefaultValues.current;
@@ -1389,17 +1383,22 @@ const useFieldArray = ({ control, name, keyName = 'id', }) => {
     };
     const shouldRenderFieldArray = (shouldRender) => {
         if (readFormStateRef.current.dirtyFields ||
-            readFormStateRef.current.isDirty) {
+            readFormStateRef.current.isDirty ||
+            readFormStateRef.current.isValid) {
             shouldRender = true;
         }
         renderWatchedInputs(name);
         shouldRender && !isWatchAllRef.current && reRender();
     };
     const resetFields = (flagOrFields) => {
-        if (readFormStateRef.current.isDirty) {
+        if (readFormStateRef.current.isDirty ||
+            readFormStateRef.current.dirtyFields) {
             isDirtyRef.current =
                 isUndefined(flagOrFields) ||
-                    getIsFieldsDifferent(flagOrFields, get(defaultValuesRef.current, name, []));
+                    getIsFieldsDifferent(flagOrFields.map((_a = {}) => {
+                        var _b = keyName, omitted = _a[_b], rest = __rest(_a, [typeof _b === "symbol" ? _b : _b + ""]);
+                        return rest;
+                    }), get(defaultValuesRef.current, name, []));
         }
         for (const key in fieldsRef.current) {
             if (isMatchFieldArrayName(key, name) && fieldsRef.current[key]) {
@@ -1415,7 +1414,8 @@ const useFieldArray = ({ control, name, keyName = 'id', }) => {
                 ? appendValueWithKey(value)
                 : [appendId(value, keyName)]),
         ]);
-        if (readFormStateRef.current.dirtyFields) {
+        if (readFormStateRef.current.dirtyFields ||
+            readFormStateRef.current.isDirty) {
             dirtyFieldsRef.current[name] = [
                 ...(dirtyFieldsRef.current[name] || fillEmptyArray(fields.slice(0, 1))),
                 ...filterBooleanArray(value),
@@ -1438,10 +1438,9 @@ const useFieldArray = ({ control, name, keyName = 'id', }) => {
             touchedFieldsRef.current[name] = prepend(touchedFieldsRef.current[name], emptyArray);
             shouldRender = true;
         }
-        if ((readFormStateRef.current.dirtyFields ||
-            readFormStateRef.current.isDirty) &&
-            dirtyFieldsRef.current[name]) {
-            dirtyFieldsRef.current[name] = prepend(dirtyFieldsRef.current[name], filterBooleanArray(value));
+        if (readFormStateRef.current.dirtyFields ||
+            readFormStateRef.current.isDirty) {
+            dirtyFieldsRef.current[name] = prepend(dirtyFieldsRef.current[name] || [], filterBooleanArray(value));
             shouldRender = true;
         }
         shouldRenderFieldArray(shouldRender);
@@ -1449,8 +1448,9 @@ const useFieldArray = ({ control, name, keyName = 'id', }) => {
     };
     const remove = (index) => {
         shouldRender = false;
-        setFieldAndValidState(removeArrayAt(getCurrentFieldsValues(), index));
-        resetFields(removeArrayAt(get(getValues(), name), index));
+        const fieldValues = getCurrentFieldsValues();
+        setFieldAndValidState(removeArrayAt(fieldValues, index));
+        resetFields(removeArrayAt(fieldValues, index));
         setIsDeleted(true);
         if (isArray(get(errorsRef.current, name))) {
             set(errorsRef.current, name, removeArrayAt(get(errorsRef.current, name), index));
@@ -1507,8 +1507,9 @@ const useFieldArray = ({ control, name, keyName = 'id', }) => {
     const insert$1 = (index, value, shouldFocus = true) => {
         shouldRender = false;
         const emptyArray = fillEmptyArray(value);
-        setFieldAndValidState(insert(getCurrentFieldsValues(), index, isArray(value) ? appendValueWithKey(value) : [appendId(value, keyName)]));
-        resetFields(insert(get(getValues(), name), index));
+        const fieldValues = getCurrentFieldsValues();
+        setFieldAndValidState(insert(fieldValues, index, isArray(value) ? appendValueWithKey(value) : [appendId(value, keyName)]));
+        resetFields(insert(fieldValues, index));
         if (isArray(get(errorsRef.current, name))) {
             errorsRef.current[name] = insert(get(errorsRef.current, name), index, emptyArray);
         }
@@ -1583,12 +1584,15 @@ const useFieldArray = ({ control, name, keyName = 'id', }) => {
             reRender();
         }
         else if (watchFieldsRef) {
+            let shouldRenderUseWatch = true;
             for (const watchField of watchFieldsRef.current) {
                 if (watchField.startsWith(name)) {
                     reRender();
+                    shouldRenderUseWatch = false;
                     break;
                 }
             }
+            shouldRenderUseWatch && renderWatchedInputs(name);
         }
         if (focusIndexRef.current > -1) {
             for (const key in fieldsRef.current) {
@@ -1682,7 +1686,7 @@ var getInputValue = (event) => isPrimitive(event) ||
 const Controller = (_a) => {
     var { name, rules, as, render, defaultValue, control, onFocus } = _a, rest = __rest(_a, ["name", "rules", "as", "render", "defaultValue", "control", "onFocus"]);
     const methods = useFormContext();
-    const { defaultValuesRef, setValue, register, unregister, trigger, mode: { isOnChange, isOnBlur }, reValidateMode: { isReValidateOnBlur, isReValidateOnChange }, isSubmittedRef, touchedFieldsRef, readFormStateRef, reRender, fieldsRef, fieldArrayNamesRef, unmountFieldsStateRef, formState, } = control || methods.control;
+    const { defaultValuesRef, setValue, register, unregister, trigger, mode, reValidateMode: { isReValidateOnBlur, isReValidateOnChange }, isSubmittedRef, touchedFieldsRef, readFormStateRef, reRender, fieldsRef, fieldArrayNamesRef, unmountFieldsStateRef, } = control || methods.control;
     const isNotFieldArray = !isNameInFieldArray(fieldArrayNamesRef.current, name);
     const getInitialValue = () => !isUndefined(get(unmountFieldsStateRef.current, name)) && isNotFieldArray
         ? unmountFieldsStateRef.current[name]
@@ -1693,13 +1697,10 @@ const Controller = (_a) => {
     const valueRef = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])(value);
     const onFocusRef = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])(onFocus);
     const isSubmitted = isSubmittedRef.current;
-    const shouldValidate = () => !skipValidation({
-        isOnBlur,
-        isOnChange,
+    const shouldValidate = (isBlurEvent) => !skipValidation(Object.assign({ isBlurEvent,
         isReValidateOnBlur,
         isReValidateOnChange,
-        isSubmitted,
-    });
+        isSubmitted }, mode));
     const commonTask = ([event]) => {
         const data = getInputValue(event);
         setInputStateValue(data);
@@ -1743,7 +1744,7 @@ const Controller = (_a) => {
             set(touchedFieldsRef.current, name, true);
             reRender();
         }
-        if (isOnBlur || (formState.isSubmitted && isReValidateOnBlur)) {
+        if (shouldValidate(true)) {
             trigger(name);
         }
     };
