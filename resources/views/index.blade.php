@@ -11,6 +11,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Scada&display=swap" rel="stylesheet">
 
         <link rel="stylesheet" href="{{URL::asset('css/app.css')}}">
+        <script src="https://js.paystack.co/v1/inline.js"></script> 
         <script src="{{URL::asset('js/app.js')  }}" defer></script>
     </head>
     <body>

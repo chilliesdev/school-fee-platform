@@ -11305,9 +11305,113 @@ footer ul li .social-icons span {
   margin: 1rem auto;
 }
 
+.dashboard {
+  padding-left: 70px;
+  padding-top: 20px;
+  background-color: #F5F5F5;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard .dashboard-container {
+  display: flex;
+  justify-content: space-around;
+  margin: auto 24px;
+}
+
+.dashboard .dashboard-container .grid.lg {
+  flex-basis: 55%;
+}
+
+.dashboard .dashboard-container .grid.sm {
+  flex-basis: 35%;
+}
+
+.dashboard .btn {
+  font-size: 12px;
+}
+
+.dashboard h5 {
+  font-weight: bold;
+  font-family: "Scada", sans-serif;
+  text-transform: capitalize;
+  font-size: 18px;
+  margin: auto 0;
+}
+
+.dashboard .dashboard-heading {
+  display: flex;
+  justify-content: space-between;
+  margin: auto 46px;
+}
+
+.dashboard .dashboard-heading h1 {
+  color: #006397;
+  margin-bottom: 25px;
+}
+
+.dashboard .dashboard-heading .btn.xl {
+  width: 27%;
+  margin: 10px;
+}
+
+.dashboard .monitor .card-group {
+  display: flex;
+  justify-content: space-between;
+}
+
+.dashboard .transaction-list .heading {
+  display: flex;
+  justify-content: space-between;
+}
+
+.dashboard .withdrawal-list h5 {
+  margin: 10px auto;
+}
+
 .sidebar {
-  width: 90px;
-  background: linear-gradient(to bottom, #4BCDE7, #006397);
+  width: 70px;
+  background: linear-gradient(to bottom, #4BCDE7 10%, #006397 90%);
+  position: fixed;
+  height: 100%;
+  transition: all ease-in-out 350ms;
+}
+
+.sidebar div:nth-of-type(1) {
+  margin-top: 75px;
+}
+
+.sidebar .list-item {
+  padding: 15px;
+  padding-left: 20px;
+  cursor: pointer;
+}
+
+.sidebar .list-item a {
+  text-decoration: none;
+}
+
+.sidebar .list-item a img {
+  width: 25px;
+  -webkit-filter: invert(1);
+          filter: invert(1);
+  display: inline;
+}
+
+.sidebar .list-item a .sidebar-text {
+  color: white;
+  margin-left: 31px;
+  font-size: 17px;
+  font-family: "Montserrat", sans-serif;
+}
+
+.sidebar .list-item:hover {
+  background-color: #023579;
+}
+
+.sidebar.open {
+  width: 250px;
 }
 
 .logo {
@@ -11410,6 +11514,10 @@ footer ul li .social-icons span {
   opacity: 0.44;
 }
 
+.input-group input:disabled {
+  background: #e6e6e6;
+}
+
 .btn {
   border: #FFFFFF 0 solid;
   border-radius: 4px;
@@ -11432,6 +11540,10 @@ footer ul li .social-icons span {
   opacity: 1;
 }
 
+#confirm-card-button {
+  width: 40%;
+}
+
 .loading.lg {
   position: absolute;
   top: 50%;
@@ -11450,6 +11562,17 @@ footer ul li .social-icons span {
 
 .loading.default {
   color: white;
+}
+
+.loading-bg {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #000000;
+  opacity: 0.8;
+  z-index: 2;
 }
 
 .error-message {
@@ -11485,5 +11608,114 @@ select option {
   font-weight: bolder;
   font-family: "Montserrat", sans-serif;
   font-size: 14px;
+}
+
+.dashboard-card {
+  background-color: #ffffff;
+  box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.75);
+  border: solid 0px #ffffff;
+  border-radius: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  flex-basis: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.dashboard-card h3 {
+  font-size: 30px;
+  margin-top: 17px;
+  font-family: "Montserrat", sans-serif;
+}
+
+.dashboard-card .line {
+  background-color: #023579;
+  width: 85%;
+  height: 5px;
+  margin-bottom: 8px;
+}
+
+.dashboard-card h4 {
+  font-size: 18px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  font-family: "Scada", sans-serif;
+}
+
+.list-group {
+  overflow: auto;
+  height: 53vh;
+}
+
+.list-group .list-item {
+  background-color: #ffffff;
+  box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.75);
+  border: solid 0px #ffffff;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 22px;
+}
+
+.list-group .list-item .label {
+  text-transform: uppercase;
+  font-weight: bold;
+  font-family: "Scada", sans-serif;
+}
+
+.list-group .list-item .additional-data {
+  font-family: "Montserrat", sans-serif;
+}
+
+.list-group .list-item .btn {
+  text-transform: uppercase;
+}
+
+.list-group .list-item.lg {
+  font-size: 16px;
+  padding: 0 10px;
+  margin: 10px 10px;
+}
+
+.list-group .list-item.lg .additional-data {
+  width: 30%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.list-group .list-item.lg .btn {
+  width: 25%;
+  display: block;
+}
+
+.list-group .list-item.sm {
+  font-size: 14px;
+  padding: 7px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.list-group .list-item.sm .label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.list-group .list-item.sm .additional-data {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.list-group.list-card {
+  background-color: #ffffff;
+  box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.75);
+  border: solid 0px #ffffff;
+  border-radius: 5px;
+  padding: 10px;
+  height: 75vh;
 }
 

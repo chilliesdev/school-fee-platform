@@ -1,0 +1,46 @@
+.sidebar{
+  width: 70px;
+  background: linear-gradient(to bottom,#4BCDE7 10%,#006397 90%);
+  position: fixed;
+  height: 100%;
+  transition: all ease-in-out 350ms;
+
+  div:nth-of-type(1){
+    margin-top:75px;
+  }
+
+  .logo{
+
+  }
+
+  .list-item{
+    padding:15px;
+    padding-left: 20px;
+    cursor: pointer;
+
+    a{
+      text-decoration: none;
+
+      img{
+        width: 25px;
+        filter: invert(1);
+        display: inline;
+      }
+  
+      .sidebar-text{
+        color: white;
+        margin-left: 31px;
+        font-size: 17px;
+        font-family: $text-font-family;
+      }
+    }
+
+    &:hover{
+      background-color: $primary;
+    }
+  }
+}
+
+.sidebar.open{
+  width: 250px;
+}

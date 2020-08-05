@@ -1,23 +1,31 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 // components
 import { Logo } from '../components'
 
 export default function SideBar() {
 
+  const [Collapsed, setCollapsed] = useState(true)
+
+  function toggleCollapse(value) { 
+    setCollapsed(value)
+  }
 
   const SideBarList = ({ image, name, link="#" }) => <div className="list-item">
-    <div className="icon">
-      <a href={link}>
-        <img src={image}/>
-        <div className="sidebar-text">{name}</div>
-      </a>
-    </div>
+    <Link to={link}>
+      <img className="icon" src={image}/>
+      {!Collapsed && <span className="sidebar-text">{name}</span>}
+    </Link>
   </div>
 
   return (
-    <div className="sidebar">
-      <Logo size="sm" />
+    <div 
+      className={Collapsed ? "sidebar" : "sidebar open"} 
+      onMouseEnter={() => toggleCollapse(false)}
+      onMouseLeave={() => toggleCollapse(true)}
+    >
+      <Logo size={Collapsed ? "sm" : "lg"} />
       
       <SideBarList
        image="/svg/user.svg" 

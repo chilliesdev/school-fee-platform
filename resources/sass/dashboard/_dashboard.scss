@@ -1,0 +1,73 @@
+.dashboard{
+  padding-left: 70px;
+  padding-top: 20px;
+  background-color: #F5F5F5;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .dashboard-container{
+    display: flex;
+    justify-content: space-around;
+    margin: auto 24px;
+
+    .grid.lg{
+      flex-basis: 55%;
+    }
+
+    .grid.sm{
+      flex-basis: 35%;
+    }
+  }
+
+  .btn{
+    font-size: 12px;
+    // font-weight: 500;
+  }
+
+  h5{
+    font-weight: bold;
+    font-family: $heading-font-family;
+    text-transform: capitalize;
+    font-size: 18px;
+    margin: auto 0;
+  }
+
+  .dashboard-heading{
+    display: flex;
+    justify-content: space-between;
+    margin: auto 46px;
+
+    h1{
+      color: $secondary;
+      margin-bottom: 25px;
+    }
+  
+    .btn.xl{
+      width: 27%;
+      margin: 10px;
+    }
+  }
+
+  .monitor{
+    
+    .card-group{
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
+  .transaction-list{
+    
+    .heading{
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
+  .withdrawal-list{
+    h5{
+      margin: 10px auto;
+    }
+  }
+}

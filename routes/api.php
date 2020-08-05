@@ -23,8 +23,8 @@ Route::middleware('auth:api')->get('/logout','AuthController@logout');
 Route::post('/register','UsersController@create');
 
 // Payment routes
-Route::post('/pay', 'PaymentController@redirectToGateway');
 Route::get('/pay/constant', 'PaymentController@getPaymentConstant');
+Route::post('/payment/callback', 'PaymentController@handleGatewayCallback');
 
 // Users
 Route::get('/users','UsersController@index');

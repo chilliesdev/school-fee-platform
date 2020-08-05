@@ -38,5 +38,9 @@
       color: $secondary;
       opacity: $input-opacity;
     }
+
+    &:disabled{
+      background: #e6e6e6;
+    }
   }
 }

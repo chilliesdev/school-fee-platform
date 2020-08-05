@@ -10,7 +10,7 @@ export default props => <div className="container-fixed">
       <li><a href="#">Services</a></li>
       <li><a href="#">Payments</a></li>
       <li><a href="#">Contact</a></li>
-      <li><Link to="/login">Login</Link></li>
+      <li><Link to="/dashboard">Login</Link></li>
     </ul>
   </div>
 </div>

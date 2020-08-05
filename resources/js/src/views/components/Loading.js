@@ -1,8 +1,13 @@
-import React from 'react'
+import React,{ useEffect } from 'react'
 // components
 import { CircularProgress } from '@material-ui/core'
+// hooks
+import { useBodyOverflow } from '../../hooks'
 
-export default function Loading({ color = 'primary', size = 'sm' }) {
+export default function Loading({ 
+  color = 'primary', 
+  size = 'sm',
+  background = 'default' }) {
 
   const styles = () => 
     size === 'lg' 
@@ -12,10 +17,23 @@ export default function Loading({ color = 'primary', size = 'sm' }) {
     } : {
       height: '1.3rem',
       width: '1.3rem'
-    }
+    } 
 
-  return <CircularProgress 
-      style={styles()}
-      className={`loading ${color} ${size}`} 
-    />
+  useEffect(() => {
+    background === "full" && useBodyOverflow()
+    return () => {
+      useBodyOverflow("unset")
+    }
+  }, [background])
+
+  const Spinner = () => <CircularProgress 
+    style={styles()}
+    className={`loading ${color} ${size} ${background}`} 
+  />
+
+  return background === 'full' 
+  ? <div className="loading-bg">
+    <Spinner/>
+  </div>
+  : <Spinner/>
 }

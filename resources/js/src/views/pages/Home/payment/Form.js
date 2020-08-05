@@ -1,37 +1,48 @@
 import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import axios from 'axios'
+import { Redirect } from 'react-router-dom'
 
 // components
-import { Input, Button, Select } from '../../../components'
+import { Input, Button, Select, Loading } from '../../../components'
 import ConfirmDialog from './ConfirmDialog'
+
+// custom Hooks
+import { useThousand } from '../../../../hooks'
 
 // icons
 import { FaSearch } from 'react-icons/fa'
 
-export default props => {
-  const { register: formInput, handleSubmit, errors } = useForm()
+export default function Form () {
+  const { register: formInput, watch, setValue, handleSubmit, errors } = useForm()
+
+  // Form values being watched
+  const watchSchool = watch('school')
+  const watchFeeName = watch('fee')
 
   // state
-  const [ disabledButton, setDisabledButton ] = useState(true)
+  const [disabledButton, setDisabledButton] = useState(true)
   const [paymentConst, setPaymentConst] = useState(null)
   const [openDialog, setOpenDialog] = useState(false)
   const [allFormData, setAllFormData] = useState([])
   const [selectedSchoolInfo, setSelectedSchoolInfo] = useState([])
   const [selectedFee, setSelectedFee] = useState([])
-
-  function checkAllErrors() {
-    if (errors.school || errors.name || errors.class || errors.email) { return true }
-
-    return false
-  }
+  const [loading, setLoading] = useState(false)
+  const [redirectToInvoice, setRedirectToInvoice] = useState(false)
 
   // To disable submit button if their is an error
   useEffect(() => {
-    (checkAllErrors()) 
-    ? setDisabledButton(true) 
-    : setDisabledButton(false)
+    // Mange button disabled
+    (errors.school || errors.name || errors.class || errors.email) 
+    ? setDisabledButton(true)
+    : setDisabledButton(false) 
   })
+
+  useEffect(() => {
+    // when school or fee is selected
+    watchSchool && handleOnSchoolSelect(watchSchool)
+    watchFeeName && handleFeeSelect(watchFeeName)
+  } ,[watchSchool,watchFeeName])
 
   // To get payment constants
   const getPaymentConstants = async () => {
@@ -40,7 +51,7 @@ export default props => {
       let { data } = response
       setPaymentConst(data)
     } catch(error) {
-      conole.error(error.detail)
+      console.error(error.response)
       // If their was an error retry
       setTimeout(() => {
         getPaymentConstants()
@@ -64,9 +75,13 @@ export default props => {
       required: true
     },
     email: {
-      required: true
+      required: "Your email is required",
+      pattern: {
+        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+        message: "Enter a valid e-mail address",
+      },
     },
-    feeName: {
+    fee: {
       required: true
     },
     amount: {
@@ -75,30 +90,68 @@ export default props => {
   }
 
   const toggleDialog = () => setOpenDialog(!openDialog)
+  const toggleLoading = () => setLoading(!loading)
 
-  function openConfirmDialogue(data) {
+  function processPayment(response) {
+    setOpenDialog(false)
+    toggleLoading()
+    // disable disable scroll property in body element
+    setAllFormData(prevAllFormData => ({
+      ...prevAllFormData,
+      ...response
+    }))
+
+    sendToServer()
+  }
+
+  const sendToServer = async () => {
+    try {
+      let response = await axios.post('api/payment/callback',allFormData)
+      let { data } = response
+      setRedirectToInvoice(true)
+    } catch(error) {
+      console.error(error.response)
+    }
+  }
+
+  const openConfirmDialogue = data => {
     toggleDialog()
-    setAllFormData(data)
+    setAllFormData({
+      ...data,
+      amount: Number(selectedFee.amount) * 100,
+      reference: (new Date()).getTime(),
+      currency: paymentConst.currency,
+      publicKey: paymentConst.publicKey,
+      onSuccess: res => processPayment(res),
+    })
   }
 
-  function sendPaymentRequest() {
-    console.log('paymentData')
-  }
-
-  const handleOnSchoolSelect = e => {
-    console.log('selected')
-    let allSchools = paymentConst.schools
-    let selectedSchool = allSchools.filter(({ id }) => id === e.target.value)
-    setSelectedSchoolInfo(selectedSchool)
+  const handleOnSchoolSelect = id => {
+    if (id !== 'placeholder'){
+      let allSchools = paymentConst.schools
+      let tempSelctedSchool = allSchools.filter( school => school.id == id)
+      setSelectedSchoolInfo(...tempSelctedSchool)
+    }
   }
   
-  const handleFeeSelect = e => {
-    let allFees = selectedSchoolInfo.fees
-    let selectedFee = allFees.filter(({ id }) => id === e.target.value)
-    setSelectedFee(selectedFee)
+  const handleFeeSelect = id => {
+    if (id !== 'placeholder'){
+      let allFees = selectedSchoolInfo.fees
+      let tempSelectedFee = allFees.filter( fee => fee.id == id)
+      setSelectedFee(...tempSelectedFee)
+
+      setValue('amount',useThousand(tempSelectedFee[0].amount))
+    }
   }
 
   return <>
+    {loading ? <Loading color="default" size="lg" background="full"/> : null}
+    {redirectToInvoice && <Redirect
+      to={{
+        pathname: '/invoice',
+        invoiceData: allFormData
+      }}
+    />}
     <form>
       <Select
         placeholder="YOUR SCHOOL NAME"
@@ -107,17 +160,15 @@ export default props => {
         name="school"
         options={paymentConst ? paymentConst.schools : null}
         handleChange={formInput(inputRequirement.school)}
-        handleSelect={handleOnSchoolSelect}
         error={errors.school && errors.school.message}
       />
       <Select
         placeholder="SELECT A FEE"
         // icon={<FaSearch/>}
         label="Fee"
-        name="feeName"
+        name="fee"
         options={selectedSchoolInfo ? selectedSchoolInfo.fees : null}
-        handleChange={formInput(inputRequirement.feeName)}
-        handleSelect={handleFeeSelect}
+        handleChange={formInput(inputRequirement.fee)}
       />
       <Input
         label="Amount"
@@ -146,7 +197,7 @@ export default props => {
         label="Email"
         name="email"
         handleChange={formInput(inputRequirement.email)}
-        // error={errors.email && errors.email.message}
+        error={errors.email && errors.email.message}
         placeholder="Eg. example@example.com"
       />
       <Button 
@@ -158,7 +209,9 @@ export default props => {
     <ConfirmDialog 
       open={openDialog} 
       toggleOpen={toggleDialog} 
-      onConfirm={sendPaymentRequest}
+      allFormData={allFormData}
+      school={selectedSchoolInfo}
+      fee={selectedFee}
     />
   </>
 }

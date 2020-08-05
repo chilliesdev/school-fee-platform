@@ -23,24 +23,31 @@ export default connect( mapStateToProps )(function Index({ accessToken, match })
 
   const loading = () => <Loading color="primary" size="lg"/>
 
-  return (
-    <Switch>
-      <Route path={`${match.url}`} exact component={Dashboard} />
-      <Route path={`${match.url}/test`} component={props => <h1>test</h1>} />
-      {/* {routes.map((route, idx) => {
-        return route.component
-        ? <Route 
-            key={idx}
-            path={route.path}
-            exact={route.exact}
-            name={route.name}
-            render={props => <route.component {...props} />}
-          />
-        : (null)
-        }
-      )}*/}
-    </Switch>
+  return(
+    <>
+      <SideBar/>
+      <Dashboard/>
+    </>
   )
+
+  // return (
+  //   <Switch>
+  //     <Route path={`${match.url}`} exact component={Dashboard} />
+  //     <Route path={`${match.url}/test`} component={props => <h1>test</h1>} />
+  //     {/* {routes.map((route, idx) => {
+  //       return route.component
+  //       ? <Route 
+  //           key={idx}
+  //           path={route.path}
+  //           exact={route.exact}
+  //           name={route.name}
+  //           render={props => <route.component {...props} />}
+  //         />
+  //       : (null)
+  //       }
+  //     )}*/}
+  //   </Switch>
+  // )
 })
 
 // PropTypes

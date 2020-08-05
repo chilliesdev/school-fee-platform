@@ -5,6 +5,8 @@ import Loading from './Loading'
 import Alert from './Alert'
 import CheckBox from './CheckBox'
 import Select from './Select'
+import Card from './Card'
+import List from './List'
 
 export {
   Button,
@@ -14,4 +16,6 @@ export {
   Alert,
   CheckBox,
   Select,
+  Card,
+  List,
 }

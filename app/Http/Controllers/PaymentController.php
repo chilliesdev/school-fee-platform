@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
-use Paystack;
 
 class PaymentController extends Controller
 {
@@ -16,22 +15,18 @@ class PaymentController extends Controller
         ->with('fees')
         ->get();
 
+        $schools->makeHidden(['password','type','email','email_verified_at','created_at','updated_at'])
+            ->toArray();
+
         return response()->json([
-            'genTranxRef' => Paystack::genTranxRef(),
+            'publicKey' => getenv('PAYSTACK_PUBLIC_KEY'),
             'currency' => 'NGN',
             'schools' => $schools,
         ]);
     }
 
-    public function redirectToGateway() 
-    {
-        return Paystack::getAutorizationUrl()->redirectNow();
-    }
-
     public function handleGatewayCallback()
     {
-        $paymentDetails = Paystack::getPaymentData();
-
-        dd($paymentDetails);
+        return request();
     }
 }

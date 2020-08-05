@@ -17,4 +17,4 @@ Route::view('/{path?}', 'index')
     ->where('path','.*')
     ->name('index');
 
-Route::get('/payment/callback', 'PaymentController@handleGatewayCallback');
+Route::post('/pay', 'PaymentController@redirectToGateway');
