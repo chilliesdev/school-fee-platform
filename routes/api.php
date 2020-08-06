@@ -25,6 +25,8 @@ Route::post('/register','UsersController@create');
 // Payment routes
 Route::get('/pay/constant', 'PaymentController@getPaymentConstant');
 Route::post('/payment/callback', 'PaymentController@handleGatewayCallback');
+Route::get('/payment/bank', 'PaymentController@bankList');
+Route::post('/payment/verifyAccountNumber', 'PaymentController@verifyAccountNumber');
 
 // Users
 Route::get('/users','UsersController@index');

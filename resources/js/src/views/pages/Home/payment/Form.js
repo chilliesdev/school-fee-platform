@@ -95,18 +95,32 @@ export default function Form () {
   function processPayment(response) {
     setOpenDialog(false)
     toggleLoading()
-    // disable disable scroll property in body element
-    setAllFormData(prevAllFormData => ({
-      ...prevAllFormData,
-      ...response
-    }))
 
-    sendToServer()
+    setAllFormData(prevAllFormData => {
+      const data = {
+        user_id: prevAllFormData.school,
+        fee_id: prevAllFormData.fee,
+        type: 0,
+        reference: response.reference,
+        transaction_no: response.transaction,
+        trxref: response.trxref,
+        message: response.message,
+        // To remove the kobo in amount it is divide by 100
+        amount: prevAllFormData.amount / 100,
+        name: prevAllFormData.name,
+        email: prevAllFormData.email,
+        class: prevAllFormData.class,
+      }
+      
+      sendToServer(data)
+      return data
+    })
+
   }
 
-  const sendToServer = async () => {
+  const sendToServer = async (formData) => {
     try {
-      let response = await axios.post('api/payment/callback',allFormData)
+      let response = await axios.post('api/payment/callback',formData)
       let { data } = response
       setRedirectToInvoice(true)
     } catch(error) {
@@ -118,6 +132,7 @@ export default function Form () {
     toggleDialog()
     setAllFormData({
       ...data,
+      // multipied by 100 to include kobo
       amount: Number(selectedFee.amount) * 100,
       reference: (new Date()).getTime(),
       currency: paymentConst.currency,

@@ -936,16 +936,29 @@ function Form() {
 
   function processPayment(response) {
     setOpenDialog(false);
-    toggleLoading(); // disable disable scroll property in body element
-
+    toggleLoading();
     setAllFormData(function (prevAllFormData) {
-      return _objectSpread(_objectSpread({}, prevAllFormData), response);
+      var data = {
+        user_id: prevAllFormData.school,
+        fee_id: prevAllFormData.fee,
+        type: 0,
+        reference: response.reference,
+        transaction_no: response.transaction,
+        trxref: response.trxref,
+        message: response.message,
+        // To remove the kobo in amount it is divide by 100
+        amount: prevAllFormData.amount / 100,
+        name: prevAllFormData.name,
+        email: prevAllFormData.email,
+        "class": prevAllFormData["class"]
+      };
+      sendToServer(data);
+      return data;
     });
-    sendToServer();
   }
 
   var sendToServer = /*#__PURE__*/function () {
-    var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(formData) {
       var response, data;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
         while (1) {
@@ -953,7 +966,7 @@ function Form() {
             case 0:
               _context2.prev = 0;
               _context2.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_3___default.a.post('api/payment/callback', allFormData);
+              return axios__WEBPACK_IMPORTED_MODULE_3___default.a.post('api/payment/callback', formData);
 
             case 3:
               response = _context2.sent;
@@ -975,7 +988,7 @@ function Form() {
       }, _callee2, null, [[0, 8]]);
     }));
 
-    return function sendToServer() {
+    return function sendToServer(_x) {
       return _ref2.apply(this, arguments);
     };
   }();
@@ -983,6 +996,7 @@ function Form() {
   var openConfirmDialogue = function openConfirmDialogue(data) {
     toggleDialog();
     setAllFormData(_objectSpread(_objectSpread({}, data), {}, {
+      // multipied by 100 to include kobo
       amount: Number(selectedFee.amount) * 100,
       reference: new Date().getTime(),
       currency: paymentConst.currency,

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Intervention\Image\Facades\Image;
 use App\User;
 use App\Fee;
 
@@ -30,11 +29,7 @@ class UsersController extends Controller
 
         $this->storeImage($user);
 
-        $accessToken = $user->createToken('authToken')->accessToken;
-
-        return response([
-            'access_token' => $accessToken
-        ]);
+        return response($user);
     }
 
     public function mapUserToFees($user,$fees)
@@ -105,11 +100,7 @@ class UsersController extends Controller
                 'picture' => request()->picture->store('pictures','public'),
             ]);
 
-            Image::make(public_path('storage/'.$user->picture))
-                ->resize(250, 300, function($constraint) {
-                    $constraint->aspectRatio();
-                })
-                ->save();
+            event(new \App\Events\NewPictureUploadEvent($user));
         }
     }
 }
