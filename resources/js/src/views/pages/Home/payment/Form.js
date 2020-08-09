@@ -110,6 +110,7 @@ export default function Form () {
         name: prevAllFormData.name,
         email: prevAllFormData.email,
         class: prevAllFormData.class,
+        status: 1,
       }
       
       sendToServer(data)

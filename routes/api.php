@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,19 +13,31 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
+// Authentication
 Route::post('/login','AuthController@login');
 Route::middleware('auth:api')->get('/logout','AuthController@logout');
-Route::post('/register','UsersController@create');
+Route::middleware('auth:api')->get('/auth', function () {
+    return request()->user();
+});
 
-// Payment routes
+// Payment
 Route::get('/pay/constant', 'PaymentController@getPaymentConstant');
 Route::post('/payment/callback', 'PaymentController@handleGatewayCallback');
-Route::get('/payment/bank', 'PaymentController@bankList');
-Route::post('/payment/verifyAccountNumber', 'PaymentController@verifyAccountNumber');
+Route::middleware('auth:api')->get('/payment/bank', 'PaymentController@bankList');
+Route::middleware('auth:api')->post('/payment/verifyAccountNumber', 'PaymentController@verifyAccountNumber');
+Route::middleware('auth:api')->post('/payment/withdraw', 'PaymentController@withdraw');
 
 // Users
-Route::get('/users','UsersController@index');
+Route::middleware('auth:api')->get('/user','UserController@index');
+Route::middleware('auth:api')->post('/user','UserController@store');
+Route::middleware('auth:api')->get('/user/{user}','UserController@show');
+Route::middleware('auth:api')->post('/user/{user}/edit','UserController@edit');
+
+// Fee
+Route::middleware('auth:api')->get('/fee','FeeController@index');
+Route::middleware('auth:api')->post('/fee','FeeController@store');
+Route::middleware('auth:api')->get('/fee/{fee}','FeeController@show');
+Route::middleware('auth:api')->post('/fee/{fee}/edit','FeeController@edit');
+
+// Dashboard
+Route::middleware('auth:api')->get('/dashboard','DashboardController@index');

@@ -6,18 +6,17 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Transaction;
 use App\CustomClass\Paystack;
+use App\Account;
 
 class PaymentController extends Controller
 {
     public function getPaymentConstant()
     {
-        $schools =  User::where([
-            [ 'type', '=', 1],
-        ])
+        $schools =  User::schools()
         ->with('fees')
         ->get();
 
-        $schools->makeHidden(['password','type','email','email_verified_at','created_at','updated_at'])
+        $schools->makeHidden(['password', 'type', 'email', 'email_verified_at', 'created_at', 'updated_at'])
             ->toArray();
 
         return response()->json([
@@ -50,24 +49,20 @@ class PaymentController extends Controller
         $paystack = new Paystack();
         
         $response = $paystack->get($url);
-
-        $verifyAccount = json_decode($response->getBody(), true);
         
-        if ($verifyAccount['status']) {
+        if ($response['status']) {
 
-            $verifyAccount['data']['bank_code'] = request()->bank_code;
-
-            $verifyAccount['data']['user_id'] = request()->user_id;
-            
-            event(new \App\Events\NewAccountNumberEvent($verifyAccount));
+            event(new \App\Events\NewAccountNumberEvent($response));
         } 
 
-        // return $verifyAccount;
+        return $response;
     }
 
     public function withdraw() 
     {
+        event(new \App\Events\WithdrawEvent());
 
+        return response()->json([ 'status' => true ]);
     }
 
     public function validatePayment()

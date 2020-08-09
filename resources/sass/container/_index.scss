@@ -1,0 +1,16 @@
+.dashboard-container {
+  padding-left: 70px;
+  padding-top: 20px;
+  background-color: #F5F5F5;
+
+  .btn {
+    font-size: 12px;
+    // font-weight: 500;
+  }
+
+  .btn.xl {
+    width: 27%;
+    margin: 10px;
+    text-transform: uppercase;
+  }
+}

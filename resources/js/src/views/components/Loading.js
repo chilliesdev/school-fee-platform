@@ -28,7 +28,7 @@ export default function Loading({
 
   const Spinner = () => <CircularProgress 
     style={styles()}
-    className={`loading ${color} ${size} ${background}`} 
+    className={`loading ${color} ${size}`} 
   />
 
   return background === 'full' 

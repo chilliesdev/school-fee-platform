@@ -7,6 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use App\CustomClass\Paystack;
 use Illuminate\Support\Facades\Validator;
+use App\Account;
 
 class CreateRecipientListener
 {
@@ -36,7 +37,7 @@ class CreateRecipientListener
             'type' => 'nuban',
             'name' => $accountDetails['data']['account_name'],
             'account_number' => $accountDetails['data']['account_number'],
-            'bank_code' => $accountDetails['data']['bank_code'],
+            'bank_code' => request()->bank_code,
             'currency' => 'NGN'
         ];
 
@@ -44,22 +45,19 @@ class CreateRecipientListener
 
         $recipient = json_decode($response->getBody(), true);
 
-        // merge recipient['data'] and $recipient['data']['details'] for validation
-        $toValidate = array_merge($recipient['data'],$recipient['data']['details']);
+        $data = $recipient['data'];
 
-        $toValidate['user_id'] = $accountDetails['data']['user_id'];
+        $validatedRecipient = [
+            'user_id' =>  request()->user()->id,
+            'integration' => $data['integration'],
+            'name' => $data['name'],
+            'recipient_code' => $data['recipient_code'],
+            'type' => $data['type'],
+            'account_number' => $data['details']['account_number'],
+            'bank_code' => request()->bank_code,
+            'bank_name' => $data['details']['bank_name'],
+        ];
 
-        $validatedRecipient = Validator::make($toValidate,[
-            'user_id' => 'required',
-            'integration' => 'required',
-            'name' => 'required',
-            'recipient_code' => 'required',
-            'type' => 'required',
-            'account_number' => 'required',
-            'bank_code' => 'required',
-            'bank_name' => 'required'
-        ]);
-
-        var_dump($validatedRecipient);
+        Account::create($validatedRecipient);
     }
 }

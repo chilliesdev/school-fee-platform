@@ -1,7 +1,15 @@
 import React from 'react'
 
 // Components
-import { Card, Button, List } from '../../components'
+import { 
+  Card, 
+  Button, 
+  List, 
+  PageHeading, 
+  PageHeader, 
+  PageContent,
+  SubHeading
+} from '../../components'
 
 export default function Dashboard() {
 
@@ -81,15 +89,13 @@ export default function Dashboard() {
     },
   ]
 
-  const SubHeadings = props => <h5>{props.children}</h5>
-
   const WithdrawButton = () => <Button classes="xl">
     WITHDRAW
   </Button>
 
   const WithdrawalList = () => {
     return <div className="withdrawal-list">
-      <SubHeadings>Withdrawals</SubHeadings>
+      <SubHeading>Withdrawals</SubHeading>
       <List
         size="sm"
         card
@@ -101,7 +107,7 @@ export default function Dashboard() {
   const TransctionList = () => {
     return <div className="transaction-list">
       <div className="heading">
-        <SubHeadings>Latest Transactions</SubHeadings>
+        <SubHeading>Latest Transactions</SubHeading>
         <Button classes="sm">MORE</Button>
       </div>
       <List
@@ -113,7 +119,7 @@ export default function Dashboard() {
 
   const Monitor = () => {
     return <div className="monitor">
-      <SubHeadings>Transaction in Numbers</SubHeadings>
+      <SubHeading>Transaction in Numbers</SubHeading>
       <div className="card-group">
         <Card
           figure="&#8358;500,000"
@@ -137,11 +143,11 @@ export default function Dashboard() {
 
   return (
     <div className="dashboard">
-      <div className="dashboard-heading">
-        <h1>Dashboard</h1>
+      <PageHeader>
+        <PageHeading>Dashboard</PageHeading>
         <WithdrawButton/>
-      </div> 
-      <div className="dashboard-container">
+      </PageHeader> 
+      <PageContent>
         <div className="grid lg">
           <Monitor/>
           <TransctionList/>
@@ -149,7 +155,7 @@ export default function Dashboard() {
         <div className="grid sm">
           <WithdrawalList/>
         </div>
-      </div>
+      </PageContent>
     </div>
   )
 }

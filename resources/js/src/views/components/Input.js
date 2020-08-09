@@ -13,7 +13,7 @@ export default function Input ({
   name = null,
   error,
   disabled = false,
-  value = null
+  rounded = false,
 }) { 
   return (
       <div className={`input-group ${size}`}>
@@ -23,8 +23,7 @@ export default function Input ({
           name={name}
           placeholder={placeholder} 
           ref={handleChange}
-          // value={value ? value : ""}
-          // className={error ? 'input-error' : null}
+          className={rounded ? 'input-rounded' : null}
           disabled={disabled}
         />
         {icon && <span className="input-icon">{icon}</span>}

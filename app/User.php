@@ -50,4 +50,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Fee');
     }
+
+    public function scopeSchools($query)
+    {
+        return $query->where('type', 1);
+    }
 }

@@ -18,6 +18,7 @@ class Transaction extends Model
         'name',
         'email',
         'class',
+        'status',
     ];
 
     public function getTypeAttribute($attribute)
@@ -27,5 +28,31 @@ class Transaction extends Model
             1 => 'Withdraw'
 
         ][$attribute];
+    }
+
+    public function getStatusAttribute($attribute)
+    {
+        return [
+            0 => 'failed',
+            1 => 'pending'
+        ][$attribute];
+    }
+
+    public function scopePayment($query, $user)
+    {
+        return $query->where([
+            [ 'type', '=', 0 ],
+            [ 'status', '=', 1 ],
+            [ 'user_id', '=', $user->id ],
+        ]);
+    }
+    
+    public function scopeWithdraw($query, $user)
+    {
+        return $query->where([
+            [ 'type', '=', 1 ],
+            [ 'status', '=', 1 ],
+            [ 'user_id', '=', $user->id ],
+        ]);
     }
 }

@@ -7,6 +7,11 @@ import CheckBox from './CheckBox'
 import Select from './Select'
 import Card from './Card'
 import List from './List'
+import PageHeading from './PageHeading'
+import PageHeader from './PageHeader'
+import PageContent from './PageContent'
+import SubHeading from './SubHeading'
+import Table from './Table'
 
 export {
   Button,
@@ -18,4 +23,9 @@ export {
   Select,
   Card,
   List,
+  PageHeading,
+  PageHeader,
+  PageContent,
+  SubHeading,
+  Table,
 }

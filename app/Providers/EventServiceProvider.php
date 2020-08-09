@@ -22,6 +22,10 @@ class EventServiceProvider extends ServiceProvider
         \App\Events\NewAccountNumberEvent::class => [
             \App\Listeners\CreateRecipientListener::class,
         ],
+        
+        \App\Events\WithdrawEvent::class => [
+            \App\Listeners\RequestWithdrawListener::class,
+        ],
     ];
 
     /**

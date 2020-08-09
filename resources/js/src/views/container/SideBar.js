@@ -6,18 +6,22 @@ import { Logo } from '../components'
 
 export default function SideBar() {
 
+  const path = "/dashboard"
+
   const [Collapsed, setCollapsed] = useState(true)
 
   function toggleCollapse(value) { 
-    setCollapsed(value)
+    setTimeout(() => {
+      setCollapsed(value)
+    }, 350);
   }
 
-  const SideBarList = ({ image, name, link="#" }) => <div className="list-item">
-    <Link to={link}>
+  const SideBarList = ({ image, name, link="#" }) => <Link 
+    to={path + link} 
+    className="list-item">
       <img className="icon" src={image}/>
       {!Collapsed && <span className="sidebar-text">{name}</span>}
-    </Link>
-  </div>
+  </Link>
 
   return (
     <div 
@@ -25,11 +29,12 @@ export default function SideBar() {
       onMouseEnter={() => toggleCollapse(false)}
       onMouseLeave={() => toggleCollapse(true)}
     >
-      <Logo size={Collapsed ? "sm" : "lg"} />
+      <Logo link={path} size={Collapsed ? "sm" : "lg"} />
       
       <SideBarList
        image="/svg/user.svg" 
        name="Profile"
+       link="/school"
       />
       <SideBarList
        image="/svg/transaction.svg" 

@@ -1,56 +1,94 @@
-import React, { lazy, Suspense } from 'react'
-import { Route, Redirect, Switch } from 'react-router-dom'
+import React, { useState, useEffect, Suspense } from 'react'
+import { Route, Switch, Redirect, useRouteMatch } from 'react-router-dom'
+
+// Protected Rotess
 import routes from '../../routes'
-// import Dashboard from '../pages/Dashboard/Dashboard'
 
 // Redux
-import ProTypes from 'prop-types'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-const SideBar = lazy(() => import('./SideBar'))
-const Dashboard = lazy(() => import('../pages/Dashboard/Dashboard'))
+// Container components
+import SideBar from './SideBar'
 
 // components
 import { Loading } from '../components'
+
+// custom Hooks
+import { useSecureConnect } from '../../hooks'
+
+function Index({ accessToken }) {
+  
+  const loading = () => <Loading color="primary" size="lg"/>
+
+  const { path } = useRouteMatch()
+  const { get } = useSecureConnect()
+
+  // State
+  const [redirect, setRedirect] = useState(false)
+  const [userDetails, setUserDetails] = useState(null)
+
+  useEffect(() => {
+    accessToken && validateAccessToken()
+  }, [accessToken])
+
+  const validateAccessToken = async () => {
+    try {
+      const response = await get('/auth',accessToken)
+      setUserDetails(response.data)
+    } catch({ status, response }) {
+      switch (status) {
+        case 401:
+            setRedirect(true)
+          break;
+      
+        default:
+            console.error(response)
+            // If their was an error retry
+            setTimeout(() =>
+              validateAccessToken()
+            , 3000)
+          break;
+      }
+    }
+  }
+
+  return(
+    <Suspense fallback={loading()}>
+      {!userDetails
+      ? <Loading color="primary" size="lg" />
+      : <>
+        <SideBar />
+        <div className="dashboard-container">
+          <Switch>
+            { routes ? 
+              routes.map( (route, idx) => 
+                // check if user has permission to access the route
+                // route.permission === userDetails.type || route.permission === "general" &&
+                <Route
+                  key={idx}
+                  exact={route.exact} 
+                  path={`${path}${route.path}`} 
+                  component={route.component} />
+                )
+              : null
+            }
+            <Route component={() => <h1>404 Error Not Found</h1>} />
+          </Switch>
+        </div>
+      </>}
+      {(!accessToken || redirect)&& <Redirect to="/login" />}
+    </Suspense>
+  )
+}
 
 // props from redux
 const mapStateToProps = state => ({
   accessToken: state.auth.accessToken
 })
 
+Index.propTypes = {
+  accessToken: PropTypes.string.isRequired
+}
 
-export default connect( mapStateToProps )(function Index({ accessToken, match }) {
-
-  const loading = () => <Loading color="primary" size="lg"/>
-
-  return(
-    <>
-      <SideBar/>
-      <Dashboard/>
-    </>
-  )
-
-  // return (
-  //   <Switch>
-  //     <Route path={`${match.url}`} exact component={Dashboard} />
-  //     <Route path={`${match.url}/test`} component={props => <h1>test</h1>} />
-  //     {/* {routes.map((route, idx) => {
-  //       return route.component
-  //       ? <Route 
-  //           key={idx}
-  //           path={route.path}
-  //           exact={route.exact}
-  //           name={route.name}
-  //           render={props => <route.component {...props} />}
-  //         />
-  //       : (null)
-  //       }
-  //     )}*/}
-  //   </Switch>
-  // )
-})
-
-// PropTypes
-// Index.propTypes = {
-//   accessToken: PropsTypes.string.isRequired
-// }
+export default connect( mapStateToProps )(Index)

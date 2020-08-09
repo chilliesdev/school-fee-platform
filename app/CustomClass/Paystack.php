@@ -38,16 +38,20 @@ class Paystack
 		try {
 			switch ($type) {
 				case 'POST':
-					return $client->request('POST',$url,[ 
+					$response = $client->request('POST',$url,[ 
 						'headers' => $headers,
 						'form_params' => $data
 					]);
+
+					return json_decode($response->getBody(), true);
 					break;
 				
 				default:
-					return $client->request('GET',$url,[ 
+					$response = $client->request('GET',$url,[ 
 							'headers' => $headers
 						]);
+
+					return json_decode($response->getBody(), true);
 					break;
 			}
 		} catch(BadResponseException $e) {

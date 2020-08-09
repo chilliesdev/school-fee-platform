@@ -20,9 +20,11 @@
 @import './dashboard/login';
 @import './dashboard/forgot_password';
 @import './dashboard/dashboard';
+@import './dashboard/school';
 
 // container
 @import './container/sidebar';
+@import './container/index';
 
 // Components
 @import './components/logo';
@@ -34,3 +36,8 @@
 @import './components/select';
 @import './components/card';
 @import './components/list';
+@import './components/page_heading';
+@import './components/page_header';
+@import './components/page_content';
+@import './components/sub_heading';
+@import './components/table';

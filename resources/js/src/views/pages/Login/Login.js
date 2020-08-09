@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
+import { Redirect } from 'react-router-dom'
 
 // Components 
 import { Logo, Input, Button, Loading, Alert, CheckBox } from '../../components'
@@ -27,6 +28,7 @@ function Login({
   const [ statusError, setStatusError ] = useState("")
   const [ disabled, setDisabled ] = useState(false)
   const [ rememberMe, setRememberMe ] = useState(false)
+  const [ sendToDashboard, setSendToDashboard ] = useState(false)
 
   // Input Requirements
   const inputRequirement = {
@@ -69,6 +71,7 @@ function Login({
             token: response.data.access_token
           }
           saveAccessToken(accessToken)
+          setSendToDashboard(true)
           
         break;
         
@@ -90,6 +93,7 @@ function Login({
 
   return (
     <div className="card">
+      { sendToDashboard && <Redirect to="/dashboard"/>}
       <Logo/>
       <h2>Login</h2>
       <form>

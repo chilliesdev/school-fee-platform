@@ -39,17 +39,19 @@ function App() {
 
   return(
     <ThemeProvider theme={theme}>
-      <Suspense fallback={loading()}>
-        <Router>
+      <Router>
+        <Suspense fallback={loading()}>
           <Switch>
             <Route exact path="/login" component={Login} />
             <Route exact path="/logout" component={Logout} />
             <Route exact path="/invoice" component={Invoice} />
-            <Route exact path="/dashboard" component={Container} />
             <Route exact path="/" component={Home} />
+            <Route path="/dashboard" component={Container} />
+            <Route component={() => <h1>404 Page Not Found</h1>} />
+            <Route exact path="/500" component={() => <h1>500 Unauthorized</h1>} />
           </Switch>
-        </Router>
-      </Suspense>
+        </Suspense>
+      </Router>
     </ThemeProvider>
   ) 
 }
