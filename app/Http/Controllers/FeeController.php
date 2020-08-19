@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Fee;
+use App\User;
 
 class FeeController extends Controller
 {
@@ -12,11 +13,11 @@ class FeeController extends Controller
         return Fee::get();
     }
 
-    public function store()
+    public function store(User $user)
     {
-        $validatedFees = $this->validateMultiFee();
+        $validatedFees = $this->validateMultipleFee();
 
-        $feesMappedToUser = $this->mapUserToFees(request()->user,$validatedFees);
+        $feesMappedToUser = $this->mapUserToFees($user->id,$validatedFees);
 
         return response()->json(Fee::insert($feesMappedToUser));
     }
@@ -26,9 +27,21 @@ class FeeController extends Controller
         return $fee;
     }
 
-    public function edit(Fee $fee)
+    public function edit($user)
     {
-        return $fee->update($this->validateFee());
+        // delete previous fees by user
+        Fee::where('user_id',$user)->delete();
+
+        $validatedFees = $this->validateMultipleFee();
+
+        $feesMappedToUser = $this->mapUserToFees($user,$validatedFees);
+
+        return response()->json(Fee::insert($feesMappedToUser));
+
+    }
+
+    public function destory(Fee $fee){
+        $fee->delete();
     }
 
     public function validateFee()
@@ -48,18 +61,18 @@ class FeeController extends Controller
         return $fees;
     }
 
-    public function validateMultiFee()
+    public function validateMultipleFee()
     {
         $allRequest = request()->all();
         $fees = [];
 
-        function checkSuffix($currentKey,$prefix)
+        function checkSuffix($currentKey,$suffix)
         {
             // extract and return the suffix eg. fee_1 return 1
-            $point = strlen($currentKey) - 1;
-            if (substr($currentKey,0,$point) === $prefix . '_'){
+            $point = strlen($suffix);
+            if (substr($currentKey,0,$point) === $suffix){
 
-                return substr($currentKey,$point,$point);
+                return substr($currentKey,$point + 1,strlen($currentKey));
             }
 
             return false;
@@ -70,7 +83,6 @@ class FeeController extends Controller
             if ($suffix){
                 // if the suffix match add it to the request
                 request()->request->add(['name' => $allRequest['name_'.$suffix]]);
-            
                 request()->request->add(['amount' => $allRequest['amount_'.$suffix]]);
             
                 // validate current fee and 
@@ -80,7 +92,8 @@ class FeeController extends Controller
                 ]);
 
                 if ($result !== end($fees) && count($result) === 2) {
-                    // Make sure it has not been added before and result has fee and amount 
+                    // Make sure it has not been added before and 
+                    // result has fee and amount 
                     array_push($fees,$result);
                 }
             }

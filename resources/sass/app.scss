@@ -16,11 +16,16 @@
 @import './public/payment';
 @import './public/footer';
 
+// shared Pages
+@import './public/error_page';
+
 // Dashboard
 @import './dashboard/login';
 @import './dashboard/forgot_password';
 @import './dashboard/dashboard';
 @import './dashboard/school';
+@import './dashboard/transaction';
+@import './dashboard/profile';
 
 // container
 @import './container/sidebar';
@@ -41,3 +46,4 @@
 @import './components/page_content';
 @import './components/sub_heading';
 @import './components/table';
+@import './components/modal';

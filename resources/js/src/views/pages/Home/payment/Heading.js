@@ -1,5 +1,5 @@
-import React from 'react'
+import React from "react"
 
-export default props => <h2>
-  Pay Now
-</h2>;
+export default function Heading() {
+  return <h2 className="payment-heading">Pay Now</h2>
+}

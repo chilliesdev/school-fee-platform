@@ -1,13 +1,21 @@
-import React from 'react'
+import React from "react"
 
-import Header from './header'
-import Services from './services'
-import Payment from './payment'
+import Header from "./header"
+import Services from "./services"
+import Payment from "./payment"
+import Navbar from "./header/Navbar"
+import Footer from "./footer"
 
-export default props => <>
-  <div className="container">
-    <Header/>
-    <Services/>
-    <Payment/>
-  </div>
-</>
+export default function Home() {
+  return (
+    <>
+      <Navbar />
+      <div className="container">
+        <Header />
+        <Services />
+        <Payment />
+        <Footer />
+      </div>
+    </>
+  )
+}

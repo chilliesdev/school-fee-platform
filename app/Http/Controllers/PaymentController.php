@@ -44,7 +44,7 @@ class PaymentController extends Controller
 
     public function verifyAccountNumber()
     {
-        $url = '/bank/resolve?account_number=' . request()->account_number . '&bank_code=' . request()->bank_code;
+        $url = '/bank/resolve?account_number=' . request()->account . '&bank_code=' . request()->bank;
         
         $paystack = new Paystack();
         

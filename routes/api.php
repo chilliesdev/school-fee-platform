@@ -17,7 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::post('/login','AuthController@login');
 Route::middleware('auth:api')->get('/logout','AuthController@logout');
 Route::middleware('auth:api')->get('/auth', function () {
-    return request()->user();
+    $user = request()->user();
+    $user['fees'] = $user->fees;
+    return $user;
 });
 
 // Payment
@@ -35,9 +37,13 @@ Route::middleware('auth:api')->post('/user/{user}/edit','UserController@edit');
 
 // Fee
 Route::middleware('auth:api')->get('/fee','FeeController@index');
-Route::middleware('auth:api')->post('/fee','FeeController@store');
+Route::middleware('auth:api')->post('/fee/{user}','FeeController@store');
 Route::middleware('auth:api')->get('/fee/{fee}','FeeController@show');
 Route::middleware('auth:api')->post('/fee/{fee}/edit','FeeController@edit');
+Route::middleware('auth:api')->delete('/fee/{fee}','FeeController@destory');
 
 // Dashboard
 Route::middleware('auth:api')->get('/dashboard','DashboardController@index');
+
+// Transaction
+Route::middleware('auth:api')->get('/transaction','TransactionController@index');

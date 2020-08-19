@@ -1,0 +1,18 @@
+.error-page {
+    display: flex;
+    height: 100vh;
+    background: white;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-top: -5rem;
+
+    img {
+        width: 22rem;
+    }
+
+    h3 {
+        font-size: 23px;
+        font-family: $text-font-family;
+    }
+}

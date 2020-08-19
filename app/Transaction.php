@@ -24,8 +24,8 @@ class Transaction extends Model
     public function getTypeAttribute($attribute)
     {
         return [
-            0 => 'Payment',
-            1 => 'Withdraw'
+            0 => 'payment',
+            1 => 'withdraw'
 
         ][$attribute];
     }
@@ -38,21 +38,27 @@ class Transaction extends Model
         ][$attribute];
     }
 
-    public function scopePayment($query, $user)
+    public function getCreatedAtAttribute($attribute)
+    {
+        $attribute = new \Carbon\Carbon($attribute);
+        return $attribute->diffForHumans();
+    }
+
+    public function scopePayment($query, $user_id)
     {
         return $query->where([
             [ 'type', '=', 0 ],
             [ 'status', '=', 1 ],
-            [ 'user_id', '=', $user->id ],
-        ]);
+            [ 'user_id', '=', $user_id ],
+        ])->latest();
     }
     
-    public function scopeWithdraw($query, $user)
+    public function scopeWithdraw($query, $user_id)
     {
         return $query->where([
             [ 'type', '=', 1 ],
-            [ 'status', '=', 1 ],
-            [ 'user_id', '=', $user->id ],
-        ]);
+            // [ 'status', '=', 1 ],
+            [ 'user_id', '=', $user_id ],
+        ])->latest();
     }
 }

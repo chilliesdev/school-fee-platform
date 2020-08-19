@@ -1,26 +1,27 @@
-import React, { useEffect, Suspense } from 'react'
-import { Redirect } from 'react-router-dom'
+import React, { useEffect, Suspense } from "react"
+import { useHistory } from "react-router-dom"
 
 // Redux
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import { requestLogout } from '../../../actions/AuthAction'
+import PropTypes from "prop-types"
+import { connect } from "react-redux"
+import { requestLogout } from "../../../actions/AuthAction"
 
 // components
-import Loading from '../../components/Loading'
+import Loading from "../../components/Loading"
 
 function Logout({ accessToken, requestLogout }) {
-  
-  const loading = () => <Loading color="primary" size="lg"/>
-  
-  // Run Logout function
-  useEffect(() => { 
-    requestLogout(accessToken) 
-  },[])
+  const history = useHistory()
+  // const loading = () => <Loading color="primary" size="lg" />
 
-  return <Suspense fallback={loading()}>
-    <Redirect to="/vendor/login"/>
-  </Suspense>
+  // Run Logout function
+  useEffect(() => {
+    requestLogout(accessToken)
+    return () => {
+      history.push("/")
+    }
+  }, [accessToken])
+
+  return <Loading color="primary" size="lg" />
 }
 
 Logout.propType = {
@@ -28,8 +29,8 @@ Logout.propType = {
   requestLogout: PropTypes.func.isRequired
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   accessToken: state.auth.accessToken
 })
 
-export default connect( mapStateToProps, { requestLogout } )(Logout)
+export default connect(mapStateToProps, { requestLogout })(Logout)

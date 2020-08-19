@@ -1,11 +1,15 @@
 select {
-  width: 100%;
-  height: 3rem;
-  border: 3px solid $secondary;
+    width: 100%;
+    height: 3rem;
+    border: 3px solid $secondary;
 
-  option{
-    font-weight: bolder;
-    font-family: $text-font-family;
-    font-size: 14px;
-  }
+    option {
+        font-weight: bolder;
+        font-family: $text-font-family;
+        font-size: 14px;
+    }
+}
+
+select.select-rounded {
+    border-radius: 5px;
 }

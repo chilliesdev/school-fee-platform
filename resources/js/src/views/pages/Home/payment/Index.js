@@ -1,11 +1,13 @@
-import React from 'react'
+import React from "react"
 
-import Heading from './Heading'
-import Form from './Form'
-import Footer from '../footer'
+import Heading from "./Heading"
+import Form from "./Form"
 
-export default props => <section className="payment">
-  <Heading/>
-  <Form/>
-  <Footer/>
-</section>
+export default function Payment() {
+  return (
+    <section className="payment" id="payments">
+      <Heading />
+      <Form />
+    </section>
+  )
+}

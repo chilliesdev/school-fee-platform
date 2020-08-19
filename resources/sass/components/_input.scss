@@ -1,50 +1,69 @@
-.input-group.lg{
-  flex-basis: 100%;
+.input-group.lg {
+    flex-basis: 100%;
 }
 
-.input-group{
-  flex-basis: 48%;
+.input-group {
+    flex-basis: 48%;
 
-  .input-icon{
-    position: absolute;
-    top: 9px;
-    right: 20px;
-    font-size: 18px;
-    opacity: $input-opacity;
-    z-index: 1;
-  }
-
-  label{
-    display: block;
-    font-size: $p;
-    font-family: $text-font-family;
-    color: #FFFFFF;
-  }
-
-  .input-error{
-    border: 3px solid $red;
-  }
-
-  input{
-    width: 100%;
-    height: 3rem;
-    border: 3px solid $secondary;
-
-    &::placeholder{
-      font-weight: bolder;
-      padding-left: 1rem;
-      font-family: $text-font-family;
-      font-size: 14px;
-      color: $secondary;
-      opacity: $input-opacity;
+    .input-icon {
+        position: absolute;
+        top: 9px;
+        right: 20px;
+        font-size: 18px;
+        opacity: $input-opacity;
+        z-index: 1;
     }
 
-    &:disabled{
-      background: #e6e6e6;
+    label {
+        display: block;
+        font-size: $p;
+        font-family: $text-font-family;
+        color: #000000;
     }
-  }
 
-  input.input-rounded{
+    .input-error {
+        border: 3px solid $red;
+    }
+
+    input {
+        width: 100%;
+        height: 3rem;
+        border: 3px solid $secondary;
+
+        &::placeholder {
+            font-weight: bolder;
+            padding-left: 1rem;
+            font-family: $text-font-family;
+            font-size: 14px;
+            color: $secondary;
+            opacity: $input-opacity;
+        }
+
+        &:disabled {
+            background: #e6e6e6;
+        }
+    }
+
+}
+
+.input-file-group {
+
+    label {
+        @extend .btn
+    }
+
+    input {
+        display: none;
+        border: #FFFFFF 0 solid;
+    }
+}
+
+input.input-rounded {
     border-radius: 5px;
-  }
+}
+
+@media screen and (max-width: $screenTablet) {
+    div.input-group {
+        flex-basis: 100%;
+    }
 }

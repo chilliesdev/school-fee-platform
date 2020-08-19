@@ -1,6 +1,114 @@
-.school{
-  
-  table{
+$width: 75%;
+
+.school table {
     width: 100%;
-  }
+
+    tr {
+        th {
+            &:first-child {
+                width: 10%;
+            }
+
+            &:nth-child(4) {
+                width: 16%;
+            }
+        }
+
+        .table-search {
+            width: 30%;
+        }
+    }
+
+
+}
+
+.create-school {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 95vh;
+
+    .btn {
+        text-transform: uppercase;
+    }
+
+    .page-header {
+        width: $width;
+        margin: 0 auto
+    }
+
+    .page-content {
+        width: $width;
+        margin: 1rem 24px;
+    }
+}
+
+.school-form {
+    display: flex;
+    justify-content: space-evenly;
+
+    .sub-heading {
+        margin-bottom: 7px;
+        display: flex;
+        justify-content: space-between;
+
+        .btn {
+            margin: 0;
+        }
+    }
+
+    .grid {
+        flex-basis: 40%;
+
+        &:first-child label {
+            width: auto;
+            margin-right: 0;
+            margin-left: auto;
+        }
+    }
+
+    .button-grid {
+        flex-basis: 5%;
+        height: auto;
+        margin-top: auto;
+
+        .btn {
+            margin-bottom: 0;
+            width: 3rem;
+            text-align: center;
+        }
+    }
+
+}
+
+.school-form.fee {
+
+    .list-group {
+        height: 55vh;
+
+        .fee-list-item {
+            align-items: flex-end;
+
+            .close-icon {
+                border-radius: 50%;
+                text-align: center;
+                padding: 0px 4px;
+                font-size: 15px;
+                text-decoration: none;
+                display: inline-block;
+                margin: 0;
+                box-shadow: $dashboard-box-shadow;
+            }
+
+            label {
+                margin-left: 0;
+                text-transform: capitalize;
+            }
+        }
+    }
+}
+
+.school-form.account .grid label {
+    margin-left: 0;
 }

@@ -1,0 +1,46 @@
+.profile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 95vh;
+
+    .btn {
+        text-transform: uppercase;
+    }
+
+    .page-content {
+        width: 85%;
+        margin: 1rem 24px;
+
+        .profile-container {
+            display: flex;
+            justify-content: space-evenly;
+
+            .sub-heading {
+                margin-bottom: 7px;
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .grid {
+                flex-basis: 30%;
+
+                .list-group {
+                    height: 40vh;
+                }
+
+                h3 {
+                    font-size: 40px;
+                    font-weight: bold;
+                }
+
+                p {
+                    font-size: 12px;
+                    font-family: $text-font-family;
+                    margin: 0;
+                }
+            }
+        }
+    }
+}

@@ -1,46 +1,76 @@
 $text-shadow: 1px 1px 5px rgba(150, 150, 150, 1);
 
-footer{
-  background: #00000095;
-  width: 80%;
-  color: #FFFFFF;
-  margin-top: 4rem;
-  padding: 2rem 2rem;
+footer {
+    background: #000000;
+    color: #FFFFFF;
+    margin-top: 0;
+    padding: 2rem 2rem;
 
-  ul{
-    display: flex;
-    justify-content: space-between;
+    ul {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-gap: 1rem;
 
-    li{
-      flex-basis: 20%;
+        li {
+            flex-basis: 20%;
 
-      h3{
-        text-transform: capitalize;
-        font-size: 18px;
-        font-family: $heading-font-family;
-        // text-shadow: $text-shadow;
-      }
+            h3 {
+                text-transform: uppercase;
+                font-size: 15px;
+                font-weight: bold;
+                font-family: "Scada", sans-serif;
+                color: $secondary
+            }
 
-      ul{
-        display: block;
+            ul {
+                display: block;
 
-      }
-      
-      .footer-texts{
-        display: block;
-        font-family: $text-font-family;
-        // text-shadow: $text-shadow;
-        margin-bottom: 1rem;
+            }
 
-        a{
-          text-shadow: none;
+            .footer-texts {
+                display: block;
+                font-family: $text-font-family;
+                font-size: 13px;
+                // text-shadow: $text-shadow;
+                margin-bottom: 1rem;
+
+                a {
+                    color: #FFFFFF;
+                    text-decoration: underline;
+                    text-shadow: none;
+
+                    &:hover {
+                        color: #FFFFFF;
+                    }
+                }
+            }
+
+            .social-icons span {
+                color: #FFFFFF;
+                font-size: 20px;
+                margin: auto .5rem;
+            }
         }
-      }
-
-      .social-icons span{
-        font-size: 20px;
-        margin: auto .5rem;
-      }
     }
-  }
+}
+
+
+@media screen and (max-width: $screenTablet) {
+    footer ul {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 3rem;
+    }
+}
+
+@media screen and (max-width: $screenMobileL) {
+    footer ul {
+        div.footer-texts {
+            font-size: 11px;
+        }
+
+        li.footer-texts {
+            font-size: 11px;
+        }
+    }
 }

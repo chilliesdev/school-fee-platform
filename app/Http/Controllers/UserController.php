@@ -9,7 +9,7 @@ class UserController extends Controller
 {
     public function index() 
     {
-        return response()->json(User::with('fees')->get());
+        return response()->json(User::with('fees')->orderBy('name')->paginate(10));
     }
 
     public function store()
@@ -27,6 +27,7 @@ class UserController extends Controller
 
     public function show(User $user)
     {
+        $user['fees'] = $user->fees;
         return $user;
     }
 
@@ -34,24 +35,32 @@ class UserController extends Controller
     {
         $validatedUser = $this->validateUser(true);
 
-        $validatedUser['password'] = bcrypt(request()->password);
+        if (request()->has('password')){
+            $validatedUser['password'] = bcrypt(request()->password);
+        }
 
-        return $user->update($validatedUser);
+        $user->update($validatedUser);
+        return $user;
     }
 
     public function validateUser($update = false) 
     {
-        $emailValidation = 'email|required';
-
-        $update ?: $emailValidation = $emailValidation . '|unique:users';
-
-        return request()->validate([
+        $validationRules = [
             'name' => 'required|max:55',
-            'email' => $emailValidation,
+            'email' => 'email|required|unique:users',
             'password' => 'required',
+            'address' => 'required',
             'type' => 'required',
-            'picture' => 'sometimes|file|image|max:5000'
-        ]);
+            'picture' => 'sometimes|image|mimes:jpeg,jpg,png,gif|max:2000'
+        ];
+
+        if ($update) {
+            $validationRules['email'] = 'email|required';
+            $validationRules['password'] = 'sometimes';
+            $validationRules['address'] = 'sometimes';
+        }
+
+        return request()->validate($validationRules);
     }
 
     public function storeImage($user) 

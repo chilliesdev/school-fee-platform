@@ -1,183 +1,32 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[12],{
 
-/***/ "./resources/js/src/actions/AuthAction.js":
-/*!************************************************!*\
-  !*** ./resources/js/src/actions/AuthAction.js ***!
-  \************************************************/
-/*! exports provided: requestLogin, saveAccessToken, requestLogout */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "requestLogin", function() { return requestLogin; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "saveAccessToken", function() { return saveAccessToken; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "requestLogout", function() { return requestLogout; });
-/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./types */ "./resources/js/src/actions/types.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-
-
-var requestLogin = function requestLogin(loginData) {
-  return function (dispatch) {
-    axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/login', {
-      'email': loginData.email,
-      'password': loginData.password
-    }).then(function (response) {
-      return dispatch({
-        type: _types__WEBPACK_IMPORTED_MODULE_0__["REQUEST_LOGIN"],
-        payload: response
-      });
-    })["catch"](function (error) {
-      return dispatch({
-        type: _types__WEBPACK_IMPORTED_MODULE_0__["REQUEST_LOGIN"],
-        payload: error.response
-      });
-    });
-  };
-}; // To save accesss token
-
-var saveAccessToken = function saveAccessToken(accessToken) {
-  return function (dispatch) {
-    // Set token in local storage or session
-    accessToken.method === 'LOCAL_STORAGE' ? localStorage.setItem('accessToken', accessToken.token) : sessionStorage.setItem('accessToken', accessToken.token);
-    dispatch({
-      type: _types__WEBPACK_IMPORTED_MODULE_0__["SAVE_ACCESS_TOKEN"],
-      payload: accessToken.token
-    });
-  };
-};
-var requestLogout = function requestLogout(accessToken) {
-  return function (dispatch) {
-    // delete accessToken from local storage an session storage
-    localStorage.removeItem('accessToken');
-    sessionStorage.removeItem('accessToken');
-    console.log('deleted accessToken');
-    axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/logout', {
-      headers: {
-        'Authorization': "Bearer ".concat(accessToken)
-      }
-    }).then(function (response) {
-      console.log(response);
-      dispatch({
-        type: _types__WEBPACK_IMPORTED_MODULE_0__["REQUEST_LOGOUT"],
-        payload: response
-      });
-    })["catch"](function (error) {
-      console.log(error.response);
-      dispatch({
-        type: _types__WEBPACK_IMPORTED_MODULE_0__["REQUEST_LOGOUT"],
-        payload: error.response
-      });
-    });
-  };
-};
-
-/***/ }),
-
-/***/ "./resources/js/src/views/pages/Login/ForgotPassword.js":
-/*!**************************************************************!*\
-  !*** ./resources/js/src/views/pages/Login/ForgotPassword.js ***!
-  \**************************************************************/
+/***/ "./resources/js/src/views/pages/Dashboard/Dashboard.js":
+/*!*************************************************************!*\
+  !*** ./resources/js/src/views/pages/Dashboard/Dashboard.js ***!
+  \*************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ForgotPassword; });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components */ "./resources/js/src/views/components/index.js");
- // Components 
-
-
-function ForgotPassword(_ref) {
-  var changeContent = _ref.changeContent;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "card forgot-password"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_1__["Logo"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Forgot Password"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Lorem Ipsum is simply dummy text of the printing and typesetting industry."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_1__["Input"], {
-    label: "Email",
-    placeholder: "example@example.com"
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_1__["Button"], null, "Reset Password"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-    onClick: function onClick(e) {
-      e.preventDefault();
-      changeContent();
-    },
-    href: "/vendor/forgot-password"
-  }, "Go back to Login")));
-}
-
-/***/ }),
-
-/***/ "./resources/js/src/views/pages/Login/Index.js":
-/*!*****************************************************!*\
-  !*** ./resources/js/src/views/pages/Login/Index.js ***!
-  \*****************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Index; });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _Login__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Login */ "./resources/js/src/views/pages/Login/Login.js");
-/* harmony import */ var _ForgotPassword__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ForgotPassword */ "./resources/js/src/views/pages/Login/ForgotPassword.js");
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
- // Content
-
-
-
-function Index() {
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(true),
-      _useState2 = _slicedToArray(_useState, 2),
-      content = _useState2[0],
-      setContent = _useState2[1]; // Login Card = true and Forgot Password Card is false
-
-
-  var changeContent = function changeContent() {
-    return setContent(!content);
-  };
-
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "login-container"
-  }, content ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Login__WEBPACK_IMPORTED_MODULE_1__["default"], {
-    changeContent: changeContent
-  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ForgotPassword__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    changeContent: changeContent
-  }));
-}
-
-/***/ }),
-
-/***/ "./resources/js/src/views/pages/Login/Login.js":
-/*!*****************************************************!*\
-  !*** ./resources/js/src/views/pages/Login/Login.js ***!
-  \*****************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_hook_form__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-hook-form */ "./node_modules/react-hook-form/dist/index.esm.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../components */ "./resources/js/src/views/components/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_hook_form__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-hook-form */ "./node_modules/react-hook-form/dist/index.esm.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _actions_AuthAction__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../actions/AuthAction */ "./resources/js/src/actions/AuthAction.js");
+/* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../components */ "./resources/js/src/views/components/index.js");
+/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../hooks */ "./resources/js/src/hooks/index.js");
+/* harmony import */ var react_icons_bs__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-icons/bs */ "./node_modules/react-icons/bs/index.esm.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -192,173 +41,283 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
- // Components 
-
- // Redux
+ // redux
 
 
+ // Components
+
+ // hooks
+
+ // icons
 
 
 
-function Login(_ref) {
-  var loginResponse = _ref.loginResponse,
-      saveAccessToken = _ref.saveAccessToken,
-      requestLogin = _ref.requestLogin,
-      changeContent = _ref.changeContent;
+function Dashboard(_ref) {
+  var _errors$amount;
 
-  var _useForm = Object(react_hook_form__WEBPACK_IMPORTED_MODULE_1__["useForm"])(),
-      loginInput = _useForm.register,
+  var accessToken = _ref.accessToken,
+      userDetails = _ref.userDetails;
+
+  var _useForm = Object(react_hook_form__WEBPACK_IMPORTED_MODULE_2__["useForm"])(),
+      register = _useForm.register,
       handleSubmit = _useForm.handleSubmit,
       errors = _useForm.errors;
 
-  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
-    Object.entries(loginResponse).length > 0 && processLoginResponse();
-  }, [loginResponse]); // States
+  var _useSecureConnect = Object(_hooks__WEBPACK_IMPORTED_MODULE_7__["useSecureConnect"])(),
+      get = _useSecureConnect.get,
+      post = _useSecureConnect.post;
 
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])({
+    balance: 0,
+    today: 0,
+    month: 0,
+    all: 0,
+    account: {},
+    payment: [],
+    withdraw: []
+  }),
       _useState2 = _slicedToArray(_useState, 2),
-      loading = _useState2[0],
-      setLoading = _useState2[1];
+      dashboardData = _useState2[0],
+      setDashboardData = _useState2[1];
 
-  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(""),
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(false),
       _useState4 = _slicedToArray(_useState3, 2),
-      statusError = _useState4[0],
-      setStatusError = _useState4[1];
+      loading = _useState4[0],
+      setLoading = _useState4[1];
 
-  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
-      _useState6 = _slicedToArray(_useState5, 2),
-      disabled = _useState6[0],
-      setDisabled = _useState6[1];
+  var account = dashboardData.account;
+  Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
+    getDataFromServer();
+  }, []);
 
-  var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
-      _useState8 = _slicedToArray(_useState7, 2),
-      rememberMe = _useState8[0],
-      setRememberMe = _useState8[1];
+  var getDataFromServer = /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+      var _yield$get, data;
 
-  var _useState9 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
-      _useState10 = _slicedToArray(_useState9, 2),
-      sendToDashboard = _useState10[0],
-      setSendToDashboard = _useState10[1]; // Input Requirements
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.prev = 0;
+              _context.next = 3;
+              return get("/api/dashboard", accessToken);
 
+            case 3:
+              _yield$get = _context.sent;
+              data = _yield$get.data;
+              setDashboardData(data);
+              _context.next = 11;
+              break;
 
-  var inputRequirement = {
-    email: {
-      required: "Email is required"
-    },
-    password: {
-      required: "Password is required"
-    }
+            case 8:
+              _context.prev = 8;
+              _context.t0 = _context["catch"](0);
+              console.log(_context.t0.response);
+
+            case 11:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[0, 8]]);
+    }));
+
+    return function getDataFromServer() {
+      return _ref2.apply(this, arguments);
+    };
+  }();
+
+  function onSubmit(formData) {
+    setLoading(true);
+    requestWithdraw(formData);
+  }
+
+  var requestWithdraw = /*#__PURE__*/function () {
+    var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(formData) {
+      var _yield$post, data;
+
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.prev = 0;
+              _context2.next = 3;
+              return post("/api/payment/withdraw", formData, accessToken);
+
+            case 3:
+              _yield$post = _context2.sent;
+              data = _yield$post.data;
+              console.log(data); // setDashboardData(data)
+
+              _context2.next = 11;
+              break;
+
+            case 8:
+              _context2.prev = 8;
+              _context2.t0 = _context2["catch"](0);
+              console.log(_context2.t0.response);
+
+            case 11:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, null, [[0, 8]]);
+    }));
+
+    return function requestWithdraw(_x) {
+      return _ref3.apply(this, arguments);
+    };
+  }();
+
+  var withdarwSturture = function withdarwSturture(data) {
+    var newStructure = [];
+    data.map(function (row) {
+      var id = row.id,
+          name = row.name,
+          amount = row.amount,
+          created_at = row.created_at,
+          label = row.label;
+
+      if (!label) {
+        var tempRow = {
+          id: id,
+          // label: name,
+          additionalData: [Object(_hooks__WEBPACK_IMPORTED_MODULE_7__["useThousand"])("\u20A6".concat(amount)), created_at]
+        };
+        newStructure.push(tempRow);
+      } else {
+        newStructure.push(row);
+      }
+    });
+    return newStructure;
   };
 
-  function sendLoginData(data) {
-    var loginData = {
-      email: data.email,
-      password: data.password
-    };
-    setRememberMe(data.rememberMe);
-    sendDataActon();
-    requestLogin(loginData);
-  }
+  var paymentSturture = function paymentSturture(data) {
+    var newStructure = [];
+    data.map(function (row) {
+      var id = row.id,
+          name = row.name,
+          amount = row.amount,
+          created_at = row.created_at,
+          label = row.label;
 
-  function sendDataActon() {
-    var errorMessage = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-    setLoading(!loading);
-    setDisabled(!disabled);
-    setStatusError(errorMessage);
-  }
-
-  function processLoginResponse() {
-    var statusCode = loginResponse.status;
-    var response = loginResponse;
-    var UNKNOWN_ERROR = 'Please try again';
-
-    switch (statusCode) {
-      case 200:
-        // OK
-        // method to store user access token
-        var accessToken = {
-          method: rememberMe ? 'LOCAL_STORAGE' : 'SESSION_STORAGE',
-          token: response.data.access_token
+      if (!label) {
+        // If it as has not been structured
+        var tempRow = {
+          id: id,
+          label: name,
+          additionalData: [row["class"], Object(_hooks__WEBPACK_IMPORTED_MODULE_7__["useThousand"])("\u20A6".concat(amount)), created_at],
+          button: "Invoice"
         };
-        saveAccessToken(accessToken);
-        setSendToDashboard(true);
-        break;
+        newStructure.push(tempRow);
+      } else {
+        newStructure.push(row);
+      }
+    });
+    return newStructure;
+  };
 
-      case 401:
-        // Invalid Credentials
-        sendDataActon(response.data.message);
-        break;
+  var WithdrawalList = function WithdrawalList() {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+      className: "withdrawal-list"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_6__["SubHeading"], null, "Withdrawals"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_6__["List"], {
+      pagination: {
+        status: true,
+        structure: withdarwSturture,
+        accessToken: accessToken
+      },
+      size: "sm",
+      card: true,
+      listItems: dashboardData.withdraw
+    }));
+  };
 
-      case 422:
-        // Invalid Credentials
-        sendDataActon(response.data.message);
-        break;
+  var PaymentList = function PaymentList() {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+      className: "transaction-list"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+      className: "heading"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_6__["SubHeading"], null, "Latest Payment"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_6__["Button"], {
+      classes: "sm"
+    }, "MORE")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_6__["List"], {
+      pagination: {
+        status: true,
+        structure: paymentSturture,
+        loadMoreDistructure: function loadMoreDistructure(data) {
+          return data.payment;
+        },
+        accessToken: accessToken
+      },
+      listItems: dashboardData.payment,
+      size: "lg"
+    }));
+  };
 
-      default:
-        sendDataActon(UNKNOWN_ERROR);
-        break;
-    }
-  }
+  var Monitor = function Monitor(props) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+      className: "monitor"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_6__["SubHeading"], null, "Transaction in Numbers"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+      className: "card-group"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_6__["Card"], {
+      figure: "\u20A6".concat(Object(_hooks__WEBPACK_IMPORTED_MODULE_7__["useThousand"])(props.balance)) // animate
+      ,
+      label: "balance"
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_6__["Card"], {
+      figure: props.all,
+      label: "all"
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_6__["Card"], {
+      figure: props.today,
+      label: "today"
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_6__["Card"], {
+      figure: props.month,
+      label: "this month"
+    })));
+  };
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "card"
-  }, sendToDashboard && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Redirect"], {
-    to: "/dashboard"
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_3__["Logo"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Login"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_3__["Input"], {
-    label: "Email",
-    placeholder: "example@example.com",
-    handleChange: loginInput(inputRequirement.email),
-    name: "email",
-    error: errors.email && errors.email.message,
-    disabled: disabled
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_3__["Input"], {
-    label: "Password",
-    placeholder: "Password",
-    type: "password",
-    handleChange: loginInput(inputRequirement.password),
-    name: "password",
-    error: errors.password && errors.password.message,
-    disabled: disabled
-  }), statusError && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_3__["Alert"], {
-    message: statusError,
-    type: "error"
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_3__["CheckBox"], {
-    label: "Remember Me?",
-    handleChange: loginInput,
-    name: "rememberMe",
-    disabled: disabled
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_3__["Button"], {
-    type: "submit",
-    action: handleSubmit(sendLoginData),
-    disabled: disabled
-  }, loading ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_3__["Loading"], {
-    color: "default"
-  }) : "Login"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-    onClick: function onClick(e) {
-      e.preventDefault();
-      changeContent();
-    },
-    href: "/vendor/forgot-password"
-  }, "Forgot Password?")));
-} // Redux
-
-
-Login.propTypes = {
-  requestLogin: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.func.isRequired,
-  loginResponse: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.any.isRequired,
-  saveAccessToken: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.func.isRequired
-};
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, userDetails.type === "admin" ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Redirect"], {
+    from: "/dashboard",
+    to: "/dashboard/school"
+  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+    className: "dashboard"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_6__["PageHeader"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_6__["PageHeading"], null, "Dashboard"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_6__["Modal"], {
+    title: "Withdraw",
+    disabled: Object.keys(account).length > 0 ? loading : true,
+    loading: loading,
+    handleClick: handleSubmit(onSubmit)
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+    className: "withdraw-container"
+  }, Object.keys(account).length > 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_6__["SubHeading"], null, "Account Details"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", null, account.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", null, account.bank_name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", null, account.account_number), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("form", {
+    className: "withdraw-form",
+    onSubmit: handleSubmit(onSubmit)
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_6__["Input"], {
+    rounded: true,
+    type: "number",
+    name: "amount",
+    handleChange: register({
+      required: "Please add a valid amount"
+    }),
+    placeholder: "Amount",
+    error: (_errors$amount = errors.amount) === null || _errors$amount === void 0 ? void 0 : _errors$amount.message
+  }))) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", {
+    className: "bank-error"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_icons_bs__WEBPACK_IMPORTED_MODULE_8__["BsExclamationCircleFill"], null)), "Unable To Withdraw due to invalid account details please contact the Admin")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_6__["PageContent"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+    className: "grid lg"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Monitor, dashboardData), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(PaymentList, null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+    className: "grid sm"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(WithdrawalList, null)))));
+}
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    loginResponse: state.auth.loginResponse
+    accessToken: state.auth.accessToken
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_5__["connect"])(mapStateToProps, {
-  requestLogin: _actions_AuthAction__WEBPACK_IMPORTED_MODULE_6__["requestLogin"],
-  saveAccessToken: _actions_AuthAction__WEBPACK_IMPORTED_MODULE_6__["saveAccessToken"]
-})(Login));
+Dashboard.propTypes = {
+  accessToken: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.string.isRequired
+};
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_5__["connect"])(mapStateToProps)(Dashboard));
 
 /***/ })
 

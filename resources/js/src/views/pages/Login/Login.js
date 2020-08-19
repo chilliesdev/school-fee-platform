@@ -1,34 +1,33 @@
-import React, { useState, useEffect } from 'react'
-import { useForm } from 'react-hook-form'
-import { Redirect } from 'react-router-dom'
+import React, { useState, useEffect } from "react"
+import { useForm } from "react-hook-form"
+import { useHistory } from "react-router-dom"
 
-// Components 
-import { Logo, Input, Button, Loading, Alert, CheckBox } from '../../components'
+// Components
+import { Logo, Input, Button, Loading, Alert, CheckBox } from "../../components"
 
 // Redux
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import { requestLogin, saveAccessToken } from '../../../actions/AuthAction'
+import PropTypes from "prop-types"
+import { connect } from "react-redux"
+import { requestLogin, saveAccessToken } from "../../../actions/AuthAction"
 
 function Login({
   loginResponse,
   saveAccessToken,
   requestLogin,
-  changeContent,
+  changeContent
 }) {
-
-  const { register : loginInput, handleSubmit, errors } = useForm()
+  const { register: loginInput, handleSubmit, errors } = useForm()
+  const history = useHistory()
 
   useEffect(() => {
     Object.entries(loginResponse).length > 0 && processLoginResponse()
-  },[loginResponse])
+  }, [loginResponse])
 
   // States
-  const [ loading, setLoading ] = useState(false)
-  const [ statusError, setStatusError ] = useState("")
-  const [ disabled, setDisabled ] = useState(false)
-  const [ rememberMe, setRememberMe ] = useState(false)
-  const [ sendToDashboard, setSendToDashboard ] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [statusError, setStatusError] = useState("")
+  const [disabled, setDisabled] = useState(false)
+  const [rememberMe, setRememberMe] = useState(false)
 
   // Input Requirements
   const inputRequirement = {
@@ -37,7 +36,7 @@ function Login({
     },
     password: {
       required: "Password is required"
-    },
+    }
   }
 
   function sendLoginData(data) {
@@ -46,12 +45,12 @@ function Login({
       password: data.password
     }
 
-    setRememberMe(data.rememberMe)    
+    setRememberMe(data.rememberMe)
     sendDataActon()
     requestLogin(loginData)
   }
 
-  function sendDataActon(errorMessage = '') {
+  function sendDataActon(errorMessage = "") {
     setLoading(!loading)
     setDisabled(!disabled)
     setStatusError(errorMessage)
@@ -60,44 +59,44 @@ function Login({
   function processLoginResponse() {
     const statusCode = loginResponse.status
     const response = loginResponse
-    const UNKNOWN_ERROR = 'Please try again'
+    const UNKNOWN_ERROR = "Please try again"
 
     switch (statusCode) {
       case 200:
-          // OK
-          // method to store user access token
-          const accessToken = {
-            method: rememberMe ? 'LOCAL_STORAGE' : 'SESSION_STORAGE',
-            token: response.data.access_token
-          }
-          saveAccessToken(accessToken)
-          setSendToDashboard(true)
-          
-        break;
-        
+        // OK
+        // method to store user access token
+        const accessToken = {
+          method: rememberMe ? "LOCAL_STORAGE" : "SESSION_STORAGE",
+          token: response.data.access_token
+        }
+        saveAccessToken(accessToken)
+        history.push("/dashboard")
+
+        break
+
       case 401:
-          // Invalid Credentials
-          sendDataActon(response.data.message)
-        break;
-     
+        // Invalid Credentials
+        sendDataActon(response.data.message)
+        break
+
       case 422:
-          // Invalid Credentials
-          sendDataActon(response.data.message)
-        break;
+        // Invalid Credentials
+        sendDataActon(response.data.message)
+        break
 
       default:
-          sendDataActon(UNKNOWN_ERROR)
-        break;
+        sendDataActon(UNKNOWN_ERROR)
+        break
     }
   }
 
   return (
     <div className="card">
-      { sendToDashboard && <Redirect to="/dashboard"/>}
-      <Logo/>
+      <Logo />
       <h2>Login</h2>
       <form>
         <Input
+          rounded
           label="Email"
           placeholder="example@example.com"
           handleChange={loginInput(inputRequirement.email)}
@@ -106,6 +105,7 @@ function Login({
           disabled={disabled}
         />
         <Input
+          rounded
           label="Password"
           placeholder="Password"
           type="password"
@@ -114,31 +114,29 @@ function Login({
           error={errors.password && errors.password.message}
           disabled={disabled}
         />
-        { statusError && <Alert 
-          message={statusError}
-          type="error"
-        /> }
-        <CheckBox 
+        {statusError && <Alert message={statusError} type="error" />}
+        <CheckBox
           label="Remember Me?"
           handleChange={loginInput}
           name="rememberMe"
           disabled={disabled}
         />
-        <Button 
+        <Button
           type="submit"
           action={handleSubmit(sendLoginData)}
           disabled={disabled}
         >
-          {loading 
-          ? <Loading color="default"/>
-          : "Login"}
+          {loading ? <Loading color="default" /> : "Login"}
         </Button>
-        <a 
-          onClick={e => {
+        <a
+          onClick={(e) => {
             e.preventDefault()
             changeContent()
           }}
-          href="/vendor/forgot-password">Forgot Password?</a>
+          href="/vendor/forgot-password"
+        >
+          Forgot Password?
+        </a>
       </form>
     </div>
   )
@@ -148,11 +146,13 @@ function Login({
 Login.propTypes = {
   requestLogin: PropTypes.func.isRequired,
   loginResponse: PropTypes.any.isRequired,
-  saveAccessToken: PropTypes.func.isRequired,
+  saveAccessToken: PropTypes.func.isRequired
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   loginResponse: state.auth.loginResponse
 })
 
-export default connect(mapStateToProps , { requestLogin, saveAccessToken })(Login)
+export default connect(mapStateToProps, { requestLogin, saveAccessToken })(
+  Login
+)

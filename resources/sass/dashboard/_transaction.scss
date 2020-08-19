@@ -1,0 +1,46 @@
+.transaction table {
+
+    tr {
+        text-align: left;
+
+        th {
+            width: 20%;
+        }
+
+        td {
+
+            &:nth-child(3) {
+                padding-left: 17px;
+            }
+
+            &:nth-child(4) {
+                padding-left: 20px;
+            }
+
+            &:last-child {
+                padding-left: 28px;
+            }
+        }
+
+    }
+
+    tr.name-success .table-name {
+        color: $success
+    }
+
+    tr.name-danger .table-name {
+        color: $danger
+    }
+
+    .table-loading-row .table-loading-data {
+        padding: 0;
+    }
+}
+
+.filter-container {
+    width: 300px;
+}
+
+.export-container {
+    width: 250px;
+}

@@ -1,43 +1,104 @@
-.sidebar{
-  width: 70px;
-  background: linear-gradient(to bottom,#4BCDE7 10%,#006397 90%);
-  position: fixed;
-  height: 100%;
-  transition: all ease-in-out 350ms;
+.sidebar {
+    width: 70px;
+    background: linear-gradient(to bottom, #4BCDE7 10%, #006397 90%);
+    position: fixed;
+    height: 100%;
+    transition: all ease-in-out 350ms;
 
-  a:nth-of-type(1){
-    margin-top:75px;
-  }
-
-  // .logo{
-  // }
-
-  .list-item{
-    padding:15px;
-    padding-left: 20px;
-    cursor: pointer;
-    display: block;
-    text-decoration: none;
-
-    img{
-      width: 25px;
-      filter: invert(1);
-      // display: inline;
+    a:nth-of-type(1) {
+        margin-top: 75px;
     }
 
-    .sidebar-text{
-      color: white;
-      margin-left: 31px;
-      font-size: 17px;
-      font-family: $text-font-family;
-    }
+    // .logo{
+    // }
 
-    &:hover{
-      background-color: $primary;
+    .list-item {
+        padding: 15px;
+        padding-left: 20px;
+        cursor: pointer;
+        display: block;
+        text-decoration: none;
+
+        img {
+            width: 25px;
+            border: none;
+            border-radius: 50%;
+        }
+
+        img.svg {
+            filter: invert(1);
+            border-radius: 0;
+        }
+
+        .sidebar-text {
+            color: white;
+            margin-left: 31px;
+            font-size: 17px;
+            font-family: $text-font-family;
+        }
+
+        &:hover {
+            background-color: $primary;
+        }
     }
-  }
 }
 
-.sidebar.open{
-  width: 250px;
+.sidebar.open {
+    width: 250px;
+}
+
+.list-item.active {
+    background-color: $primary;
+}
+
+#sidebar-open-btn {
+    display: none;
+    position: fixed;
+    top: 1rem;
+    border-radius: 4px;
+    padding-top: 6px;
+    background-color: $secondary;
+    margin: 1rem 2rem;
+    // margin-left: 0;
+    box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.4);
+
+    span {
+        font-size: 24px;
+        transition: all ease-in-out 350ms;
+    }
+}
+
+#sidebar-open-btn.open {
+    // position: fixed;
+    border-radius: 50%;
+    left: 20rem;
+    transition: all ease-in-out 500ms;
+}
+
+#sidebar-open-btn.closed {
+    left: 0;
+    transition: all ease-in-out 400ms;
+}
+
+@media screen and (max-width: $screenTablet) {
+    button#sidebar-open-btn {
+        display: block;
+        position: fixed;
+    }
+
+    button#sidebar-open-btn .open {
+        display: block;
+    }
+
+    div.sidebar {
+        left: -99rem;
+    }
+
+    div.sidebar.open {
+        left: 0
+    }
+
+    div.dashboard-container {
+        padding-left: 0;
+    }
 }

@@ -8,9 +8,9 @@ class Cash
 {
   public static function balance()
   {
-    $allPayments = Transaction::payment(request()->user())->sum('amount');
+    $allPayments = Transaction::payment(request()->user()->id)->sum('amount');
 
-    $allWithdraw = Transaction::withdraw(request()->user())->sum('amount');
+    $allWithdraw = Transaction::withdraw(request()->user()->id)->sum('amount');
 
     return abs($allWithdraw - $allPayments);
   }

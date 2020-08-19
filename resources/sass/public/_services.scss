@@ -1,58 +1,80 @@
-$card-p-width: 200px;
+// $card-p-width: 200px;
 
-.services{
-  background: $secondary;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 2rem 1.5rem;
-
-  p{
-    color: #FFFFFF;
-    width: 70%;
-    text-align: center;
-    font-family: $text-font-family;
-    text-shadow: 1px 1px 5px rgba(150, 150, 150, 1);
-  }
-
-  .card-group{
+.services {
+    background: #FFFFFF;
+    padding: 2rem 1.5rem;
+    margin: 1rem auto;
     display: flex;
-    justify-content: space-evenly;
-    width: 100%;
-    margin: 4rem auto;
-    
-    .card{
-      background: #FFFFFF;
-      max-width: 250px;
-      height: auto;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border: #FFFFFF solid 0;
-      border-radius: 6px;
-  
-      .image-container{
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        width: 200px;
+    flex-direction: column;
 
-        img{
-          width: 80%
-        }
-      }
-  
-      h3{
-        color: $secondary;
-        font-weight: bold;
-      }
-  
-      p{
-        width: $card-p-width;
+    h2 {
         color: #000000;
-        padding: .2rem 1rem;
-        text-shadow: none;
-      }
+        width: 100%;
+        margin: auto;
+        text-align: center;
+        font-family: $heading-font-family;
+        font-weight: bold;
+        font-size: 32px;
+        // text-shadow: 1px 1px 5px rgba(150, 150, 150, 1);
     }
-  }
+
+    .services-card-group {
+        margin: 2rem 2rem;
+
+        .service-card {
+            height: auto;
+            display: flex;
+            justify-content: space-between;
+
+            img {
+                flex-basis: 30%;
+                max-width: 200px
+            }
+
+            .service-card-text {
+                flex-basis: 60%;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+
+                h3 {
+                    font-family: $heading-font-family;
+                    color: $primary;
+                    font-weight: bold;
+                    font-size: 20px;
+                }
+
+                p {
+                    font-family: $text-font-family;
+                    font-size: 13px;
+                    color: #000000;
+                    padding: .2rem 0;
+                    text-shadow: none;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: $screenMobileL) {
+    .services {
+        font-size: 25px;
+        margin: 2rem 0;
+
+        .services-card-group {
+            display: flex;
+            flex-direction: column;
+            margin: 2rem 0rem;
+
+            .service-card {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .service-card.align-right {
+                flex-direction: column-reverse;
+                align-items: center;
+            }
+        }
+    }
 }

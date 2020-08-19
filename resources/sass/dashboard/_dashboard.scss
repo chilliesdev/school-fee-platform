@@ -1,40 +1,69 @@
-.dashboard{
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-
-  .page-content{
+.dashboard {
+    height: 100%;
     display: flex;
-    justify-content: space-around;
+    flex-direction: column;
 
-    .grid.lg{
-      flex-basis: 55%;
+    .page-content {
+        display: flex;
+        justify-content: space-around;
+
+        .grid.lg {
+            flex-basis: 55%;
+        }
+
+        .grid.sm {
+            flex-basis: 35%;
+        }
     }
 
-    .grid.sm{
-      flex-basis: 35%;
+    .monitor .card-group {
+        display: flex;
+        justify-content: space-between;
     }
-  }
 
-  .monitor{
-    
-    .card-group{
-      display: flex;
-      justify-content: space-between;
+    .transaction-list .heading {
+        display: flex;
+        justify-content: space-between;
     }
-  }
 
-  .transaction-list{
-    
-    .heading{
-      display: flex;
-      justify-content: space-between;
-    }
-  }
+    .withdrawal-list {
+        h5 {
+            margin: 10px auto;
+        }
 
-  .withdrawal-list{
-    h5{
-      margin: 10px auto;
+        .additional-data-item:first-child {
+            font-weight: bold;
+        }
     }
-  }
+
+}
+
+.withdraw-container {
+    width: 300px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+
+    h5.sub-heading {
+        margin-bottom: 1rem;
+    }
+
+    p {
+        font-family: $text-font-family;
+        margin: 5px auto;
+    }
+
+    .bank-error {
+        color: $danger;
+
+        span {
+            padding-right: 3px;
+        }
+    }
+}
+
+.withdraw-form {
+    margin-top: 10px;
+    width: 250px;
 }

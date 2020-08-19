@@ -48,7 +48,7 @@ class CreateRecipientListener
         $data = $recipient['data'];
 
         $validatedRecipient = [
-            'user_id' =>  request()->user()->id,
+            'user_id' =>  request()->user,
             'integration' => $data['integration'],
             'name' => $data['name'],
             'recipient_code' => $data['recipient_code'],

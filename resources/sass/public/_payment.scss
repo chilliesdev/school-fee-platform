@@ -1,55 +1,74 @@
 $input-opacity: .44;
 // $placeholder-size: 18px;
 
-.payment{
-  background: linear-gradient(#00102258,#00102258),
-    url('/images/img2.jpg')
-    no-repeat;
-  background-size: cover;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  h2{
-    color: #FFFFFF;
-    font-weight: bold;
-    text-shadow: 1px 1px 5px rgba(150, 150, 150, 1);
-    margin: 2rem auto;
-    z-index: 1;
-
-    &::before{
-      content: "";
-      display: inline-block;
-      position: relative;
-      top: 1.3rem;
-      left: 3.4rem;
-      background: #CAF0F847;
-      height: 50px;
-      width: 50px;
-      border-radius: 50%;
-      z-index: -1;
-    }
-
-  }
-  
-  form{
+.payment {
+    background: linear-gradient(#00102258, #00102258),
+        url('/images/img2.jpg') no-repeat;
+    background-size: cover;
+    width: 100%;
     display: flex;
-    justify-content: space-between;
-    flex-flow: wrap;
-    margin: 3rem auto;
-    max-width: 80%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 
-    label{
-      margin-top: .5rem;
+    h2 {
+        color: #FFFFFF;
+        font-weight: bold;
+        text-shadow: 1px 1px 5px rgba(150, 150, 150, 1);
+        margin: 1rem auto;
+        font-size: 32px;
+        font-family: $heading-font-family;
+        z-index: 1;
+
+        &::before {
+            content: "";
+            display: inline-block;
+            position: relative;
+            top: 1.3rem;
+            left: 3.4rem;
+            background: $secondary;
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            z-index: -1;
+        }
+
     }
-    
-    .btn{
-      flex-basis: 45%;
-      margin-top: 32px;
-      margin-bottom: 3px;
-      height: 27px;
+
+    form {
+        display: flex;
+        justify-content: space-between;
+        flex-flow: wrap;
+        margin: 1rem auto;
+        margin-bottom: 25px;
+        max-width: 80%;
+
+        label {
+            margin-top: .5rem;
+            color: #FFFFFF;
+        }
+
+        .btn {
+            flex-basis: 45%;
+            margin-top: 32px;
+            margin-bottom: 3px;
+            height: 27px;
+        }
     }
-  }
+}
+
+@media screen and (max-width: $screenTablet) {
+    form {
+        max-width: 95%;
+    }
+
+    button.btn.payment-btn {
+        flex-basis: 100%;
+    }
+}
+
+@media screen and (max-width: $screenMobileL) {
+    h2.payment-heading {
+        font-size: 23px;
+    }
 }

@@ -1,63 +1,61 @@
 /* Resets */
 *,
 *::before,
-*::after{
-  margin: 0;
-  padding: 0;
-  box-sizing: inherit;
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
 }
 
-html{
-  font-family: $text-font-family;
-  color: $secondary;
-  font-size: $p;
+html {
+    font-family: $text-font-family;
+    color: $secondary;
+    font-size: $p;
 }
 
-a{
-  text-decoration: none;
+a {
+    text-decoration: none;
 }
 
-ul{
-  list-style: none;
+ul {
+    list-style: none;
 }
 
-h1{
-  font-size: $h1;
-  font-family: $heading-font-family;
+h1 {
+    font-size: $h1;
+    font-family: $heading-font-family;
 }
 
-h2{
-  font-size: $h2;
-  font-family: $heading-font-family;
+h2 {
+    font-size: $h2;
+    font-family: $heading-font-family;
 }
 
-h3{
-  font-size: $h3;
-  font-family: $heading-font-family;
+h3 {
+    font-size: $h3;
+    font-family: $heading-font-family;
 }
 
-p{
-  font-size: $p;
+p {
+    font-size: $p;
 }
 
-img{
-  width: 100%;
-  max-width: 100%;
-  height: auto;
+img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
 }
 
-// body{
-//   background: $secondary;
-// }
-
-.container{
-  margin: auto;
-  width: 1080px;
-  padding: 0;
+body {
+    background: white;
 }
 
-.row{
-  margin-right: 1.5rem;
-  margin-left: 1.5rem;
-  width: 100%;
+.container {
+    margin: auto;
+    max-width: 1080px;
+    padding: 0;
+}
+
+.row {
+    margin-left: 1.5rem;
 }

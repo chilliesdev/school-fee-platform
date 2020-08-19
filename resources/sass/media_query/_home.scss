@@ -1,0 +1,72 @@
+@media screen and (min-width: $screen4K) {
+    .texts {
+        width: 18%;
+    }
+}
+
+@media screen and (min-width: $screenLaptopL) {
+    .texts {
+        width: 40%;
+    }
+}
+
+@media screen and (min-width: $screenTablet) {
+    header {
+        height: 38rem;
+    }
+
+    .texts {
+        top: 10rem;
+
+        h1 {
+            font-size: 26px;
+        }
+
+        p {
+            font-size: 13px;
+        }
+
+        .btn-group a {
+            font-size: 13px;
+        }
+    }
+
+    .navbar {
+        justify-content: center;
+
+        button {
+            display: block;
+        }
+
+        ul.menu-container {
+            display: none;
+            margin: 0;
+            position: fixed;
+            font-family: "Scada", sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            right: 0;
+            background: $primary;
+            top: 0;
+            width: 50%;
+            height: 100vh;
+
+            .menu-close-icon {
+                display: block;
+            }
+
+            li {
+                font-size: 19px;
+                margin: 1rem 0;
+
+                a {
+                    text-shadow: none;
+                    color: #ffffff;
+                }
+
+            }
+        }
+    }
+}

@@ -2,7 +2,8 @@
 $body-bg: #f8fafc;
 
 // Typography
-$font-family-sans-serif: 'Nunito', sans-serif;
+$font-family-sans-serif: 'Nunito',
+sans-serif;
 $font-size-base: 0.9rem;
 $line-height-base: 1.6;
 
@@ -22,14 +23,31 @@ $cyan: #6cb2eb;
 $primary: #023579;
 $secondary: #006397;
 $default: #4BCDE760;
+$danger: #e3342f;
+$success: #38c172;
+
 
 // App Typography
-$text-font-family: 'Montserrat', sans-serif;
+$text-font-family: 'Montserrat',
+sans-serif;
 $p: 13px;
 
 $h3: 16px;
 
 $h2: 26px;
 
-$heading-font-family: 'Scada', sans-serif;
+$heading-font-family: 'Scada',
+sans-serif;
 $h1: 32px;
+
+// dashboard component shadows
+$dashboard-box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.4);
+
+// Screen Sizes
+$screen4K: '2560px';
+$screenLaptopL: '1440px';
+$screenLaptop: '1024px';
+$screenTablet: '768px';
+$screenMobileL: '425px';
+$screenMobileM: '375px';
+$screenMobileS: '320px';
