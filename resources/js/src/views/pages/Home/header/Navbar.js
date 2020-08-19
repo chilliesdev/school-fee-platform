@@ -41,33 +41,33 @@ export default function Navbar() {
             </a>
           </li>
           <li>
-            <Link className={"/" === pathname ? "active" : ""} to="/">
+            <a className={"/" === pathname ? "active" : ""} href="/">
               Home
-            </Link>
+            </a>
           </li>
           <li>
-            <Link
+            <a
               className={"#services" === pathname ? "active" : ""}
-              to="#services"
+              href="/#services"
             >
               Services
-            </Link>
+            </a>
           </li>
           <li>
-            <Link
+            <a
               className={"#payments" === pathname ? "active" : ""}
-              to="#payments"
+              href="/#payments"
             >
               Payments
-            </Link>
+            </a>
           </li>
           <li>
-            <Link
+            <a
               className={"#contact" === pathname ? "active" : ""}
-              to="#contact"
+              href="/#contact"
             >
               Contact
-            </Link>
+            </a>
           </li>
           <li>
             <Link to="/dashboard">Login</Link>

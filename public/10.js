@@ -118,7 +118,7 @@ function SideBar(_ref) {
     link: "/school",
     svg: true
   }, {
-    image: "/svg/gear.svg",
+    image: "/svg/logout.svg",
     name: "Logout",
     link: "/logout",
     svg: true
@@ -139,7 +139,7 @@ function SideBar(_ref) {
     link: "/statistics",
     svg: true
   }, {
-    image: "/svg/gear.svg",
+    image: "/svg/logout.svg",
     name: "Logout",
     link: "/logout",
     svg: true

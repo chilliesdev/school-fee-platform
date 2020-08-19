@@ -9,7 +9,7 @@ export default function Page404() {
 
   return (
     <div className="error-page">
-      <img src="/images/default-school-img.png" />
+      <img src="/images/404-error.png" />
       <h3>Page not found</h3>
       <Button action={() => goBack()}>GO BACK</Button>
     </div>

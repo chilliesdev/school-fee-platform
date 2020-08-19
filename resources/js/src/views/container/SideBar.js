@@ -19,7 +19,7 @@ export default function SideBar({ userType, profilePicture }) {
       svg: true
     },
     {
-      image: "/svg/gear.svg",
+      image: "/svg/logout.svg",
       name: "Logout",
       link: "/logout",
       svg: true
@@ -48,7 +48,7 @@ export default function SideBar({ userType, profilePicture }) {
       svg: true
     },
     {
-      image: "/svg/gear.svg",
+      image: "/svg/logout.svg",
       name: "Logout",
       link: "/logout",
       svg: true
