@@ -1,5 +1,18 @@
-.page-header{
-  display: flex;
-  justify-content: space-between;
-  margin: auto 46px;
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    margin: auto 46px;
+}
+
+@media screen and (max-width: $screenTablet) {
+    div.page-header {
+        margin: auto 2rem;
+        margin-left: 8rem;
+    }
+}
+
+@media screen and (max-width: $screenMobileS) {
+    div.page-header {
+        margin-left: 6rem;
+    }
 }

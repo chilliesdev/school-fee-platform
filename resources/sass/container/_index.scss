@@ -1,16 +1,30 @@
 .dashboard-container {
-  padding-left: 70px;
-  padding-top: 20px;
-  background-color: #F5F5F5;
+    padding-left: 70px;
+    padding-top: 20px;
+    background-color: #F5F5F5;
 
-  .btn {
-    font-size: 12px;
-    // font-weight: 500;
-  }
+    .btn {
+        font-size: 12px;
+        // font-weight: 500;
+    }
 
-  .btn.xl {
-    width: 27%;
-    margin: 10px;
-    text-transform: uppercase;
-  }
+    .btn.xl {
+        width: 27%;
+        margin: 10px;
+        text-transform: uppercase;
+    }
+}
+
+@media screen and (max-width: $screenTablet) {
+    div.dashboard-container {
+        padding-left: 0;
+    }
+}
+
+@media screen and (max-width: $screenMobileL) {
+    div.dashboard-container {
+        height: 100vh;
+        padding-bottom: 0;
+        padding-top: 0;
+    }
 }

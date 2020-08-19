@@ -67,3 +67,115 @@
     margin-top: 10px;
     width: 250px;
 }
+
+
+@media screen and (max-width: $screenTablet) {
+    .dashboard {
+        .monitor .card-group {
+
+            div.dashboard-card {
+                flex-basis: 40%;
+
+                &:nth-child(3) {
+                    display: none;
+                }
+
+                &:last-child {
+                    display: none;
+                }
+            }
+        }
+
+        div.transaction-list ul.list-group {
+            height: 48vh;
+        }
+
+        div.withdrawal-list ul.list-group.list-card {
+            height: 70vh;
+        }
+    }
+
+}
+
+@media screen and (max-width: $screenMobileL) {
+    .dashboard {
+        div.page-header {
+            margin: auto 1rem;
+            margin-left: 6rem;
+        }
+
+        .page-content {
+            flex-direction: column;
+
+            h5.sub-heading {
+                text-align: center;
+            }
+
+            .grid.grid.lg {
+                flex-basis: 40%;
+
+                .monitor .card-group {
+                    justify-content: center;
+
+                    div.dashboard-card {
+                        flex-basis: 40%;
+
+                        &:nth-child(2) {
+                            display: none;
+                        }
+                    }
+                }
+
+                div.transaction-list {
+                    display: none;
+                }
+            }
+
+
+            div.withdrawal-list {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                ul.list-group.list-card {
+                    height: 50vh;
+                    width: 90%;
+                }
+            }
+        }
+    }
+
+}
+
+@media screen and (max-width: $screenMobileS) {
+    .dashboard {
+
+        div.page-header {
+            display: grid;
+            grid-template-columns: 100%;
+            margin-left: 1rem;
+
+            h1.page-heading {
+                text-align: center;
+                margin: 0;
+                margin-top: 18px;
+            }
+
+            button.btn.xl {
+                margin: 0 auto;
+                margin-top: 6px;
+                margin-bottom: 1rem;
+            }
+        }
+
+        div.page-content div.withdrawal-list ul.list-group.list-card {
+            height: 45vh;
+        }
+
+    }
+
+    div.withdraw-container {
+        width: 100%;
+        text-align: center;
+    }
+}

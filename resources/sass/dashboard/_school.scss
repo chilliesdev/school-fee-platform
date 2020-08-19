@@ -112,3 +112,26 @@ $width: 75%;
 .school-form.account .grid label {
     margin-left: 0;
 }
+
+@media screen and (max-width: $screenMobileL) {
+
+    .create-school {
+        .page-header {
+            justify-content: flex-end;
+            margin: 2rem 0rem 0rem 1rem;
+        }
+
+        .page-content {
+            width: 85%;
+            margin: 1rem 0;
+        }
+
+        div.school-form {
+            flex-direction: column;
+        }
+
+        .school-form.fee .list-group {
+            margin: 0 13px;
+        }
+    }
+}

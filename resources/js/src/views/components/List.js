@@ -22,7 +22,6 @@ export default function List({
   const { get } = useSecureConnect()
 
   useEffect(() => {
-    pagination && console.log(pagination)
     pagination && pagination.status
       ? Object.keys(listItems).length > 0 && mapListToPaginate(listItems)
       : setList(listItems)

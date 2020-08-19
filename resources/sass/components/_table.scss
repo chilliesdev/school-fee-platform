@@ -129,3 +129,19 @@ td:first-child {
 td:last-child {
     border-radius: 0 10px 10px 0;
 }
+
+@media screen and (max-width: $screenMobileL) {
+    tbody {
+        height: 68vh;
+    }
+}
+
+@media screen and (max-width: $screenMobileL) {
+    table {
+        min-width: 750px;
+
+        tbody {
+            max-height: 66vh;
+        }
+    }
+}

@@ -1,3 +1,9 @@
-.page-content{
-  margin: auto 24px;
+.page-content {
+    margin: auto 24px;
+}
+
+@media screen and (max-width: $screenMobileL) {
+    div.page-content {
+        overflow: auto;
+    }
 }

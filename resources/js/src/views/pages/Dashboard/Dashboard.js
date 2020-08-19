@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
-import { Redirect } from "react-router-dom"
+import { Redirect, useHistory } from "react-router-dom"
 
 // redux
 import PropTypes from "prop-types"
@@ -28,6 +28,8 @@ import { BsExclamationCircleFill } from "react-icons/bs"
 function Dashboard({ accessToken, userDetails }) {
   const { register, handleSubmit, errors } = useForm()
   const { get, post } = useSecureConnect()
+
+  const history = useHistory()
 
   const [dashboardData, setDashboardData] = useState({
     balance: 0,
@@ -137,7 +139,12 @@ function Dashboard({ accessToken, userDetails }) {
       <div className="transaction-list">
         <div className="heading">
           <SubHeading>Latest Payment</SubHeading>
-          <Button classes="sm">MORE</Button>
+          <Button
+            classes="sm"
+            action={() => history.push("/dashboard/transaction")}
+          >
+            MORE
+          </Button>
         </div>
         <List
           pagination={{
@@ -159,8 +166,10 @@ function Dashboard({ accessToken, userDetails }) {
         <SubHeading>Transaction in Numbers</SubHeading>
         <div className="card-group">
           <Card
-            figure={`₦${useThousand(props.balance)}`}
+            figure={props.balance}
             // animate
+            prefix="₦"
+            thousand
             label="balance"
           />
           <Card figure={props.all} label="all" />

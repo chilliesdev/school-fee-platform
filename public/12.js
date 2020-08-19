@@ -67,6 +67,8 @@ function Dashboard(_ref) {
       get = _useSecureConnect.get,
       post = _useSecureConnect.post;
 
+  var history = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["useHistory"])();
+
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])({
     balance: 0,
     today: 0,
@@ -239,7 +241,10 @@ function Dashboard(_ref) {
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
       className: "heading"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_6__["SubHeading"], null, "Latest Payment"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_6__["Button"], {
-      classes: "sm"
+      classes: "sm",
+      action: function action() {
+        return history.push("/dashboard/transaction");
+      }
     }, "MORE")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_6__["List"], {
       pagination: {
         status: true,
@@ -260,8 +265,10 @@ function Dashboard(_ref) {
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_6__["SubHeading"], null, "Transaction in Numbers"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
       className: "card-group"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_6__["Card"], {
-      figure: "\u20A6".concat(Object(_hooks__WEBPACK_IMPORTED_MODULE_7__["useThousand"])(props.balance)) // animate
+      figure: props.balance // animate
       ,
+      prefix: "\u20A6",
+      thousand: true,
       label: "balance"
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components__WEBPACK_IMPORTED_MODULE_6__["Card"], {
       figure: props.all,

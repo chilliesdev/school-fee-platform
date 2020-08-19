@@ -66,31 +66,29 @@ export default withStyles(styles)(function Modal({
 
   return (
     <>
-      <div>
-        <Dialog
-          onClose={toggleOpen}
-          aria-labelledby="customized-dialog-title"
-          open={open}
-        >
-          <DialogTitle onClose={toggleOpen}>{title}</DialogTitle>
-          <MuiDialogContent>{children}</MuiDialogContent>
-          <MuiDialogActions>
-            <Button
-              classes="modal-confirm-btn"
-              disabled={disabled}
-              action={handleClick}
-            >
-              {loading ? (
-                <Loading color="default" />
-              ) : confirmButton ? (
-                confirmButton
-              ) : (
-                "Confirm"
-              )}
-            </Button>
-          </MuiDialogActions>
-        </Dialog>
-      </div>
+      <Dialog
+        onClose={toggleOpen}
+        aria-labelledby="customized-dialog-title"
+        open={open}
+      >
+        <DialogTitle onClose={toggleOpen}>{title}</DialogTitle>
+        <MuiDialogContent>{children}</MuiDialogContent>
+        <MuiDialogActions>
+          <Button
+            classes="modal-confirm-btn"
+            disabled={disabled}
+            action={handleClick}
+          >
+            {loading ? (
+              <Loading color="default" />
+            ) : confirmButton ? (
+              confirmButton
+            ) : (
+              "Confirm"
+            )}
+          </Button>
+        </MuiDialogActions>
+      </Dialog>
       <Button action={toggleOpen} classes="xl">
         {title}
       </Button>
