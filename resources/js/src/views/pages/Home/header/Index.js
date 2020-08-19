@@ -4,7 +4,7 @@ import Texts from "./Texts"
 
 export default function Index() {
   return (
-    <header>
+    <header id="home">
       <Texts />
     </header>
   )

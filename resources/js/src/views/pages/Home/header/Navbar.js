@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { Link, useLocation } from "react-router-dom"
+import { Link as ScrollLink } from "react-scroll"
 
 // hooks
 import { useScrollHandler } from "../../../../hooks"
@@ -30,6 +31,7 @@ export default function Navbar() {
         </Button>
         <ul className={`menu-container ${menu && "open"}`}>
           <li className="menu-close-icon">
+            <span>Menu</span>
             <a
               href="#"
               onClick={(e) => {
@@ -41,33 +43,52 @@ export default function Navbar() {
             </a>
           </li>
           <li>
-            <a className={"/" === pathname ? "active" : ""} href="/">
+            <ScrollLink
+              activeClass="active"
+              to="home"
+              spy={true}
+              smooth={true}
+              offset={-70}
+              duration={500}
+            >
               Home
-            </a>
+            </ScrollLink>
           </li>
           <li>
-            <a
-              className={"#services" === pathname ? "active" : ""}
-              href="/#services"
+            <ScrollLink
+              activeClass="active"
+              to="services"
+              spy={true}
+              smooth={true}
+              offset={-70}
+              duration={500}
             >
               Services
-            </a>
+            </ScrollLink>
           </li>
           <li>
-            <a
-              className={"#payments" === pathname ? "active" : ""}
-              href="/#payments"
+            <ScrollLink
+              activeClass="active"
+              to="payments"
+              spy={true}
+              smooth={true}
+              offset={-70}
+              duration={500}
             >
               Payments
-            </a>
+            </ScrollLink>
           </li>
           <li>
-            <a
-              className={"#contact" === pathname ? "active" : ""}
-              href="/#contact"
+            <ScrollLink
+              activeClass="active"
+              to="contact"
+              spy={true}
+              smooth={true}
+              offset={-70}
+              duration={500}
             >
               Contact
-            </a>
+            </ScrollLink>
           </li>
           <li>
             <Link to="/dashboard">Login</Link>
