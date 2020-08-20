@@ -11,24 +11,12 @@
         <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Scada&display=swap" rel="stylesheet">
 
         <link rel="stylesheet" href="{{URL::asset('css/app.css')}}">
-        {{-- <script src="https://js.paystack.co/v1/inline.js"></script>  --}}
+        <script>
+            document.cookie = 'cookie2=value2; SameSite=None; Secure';
+        </script>
         <script src="{{URL::asset('js/app.js')  }}" defer></script>
-        {{-- <style>
-            .js-cookie-consent{
-                position: fixed;
-                bottom: 0;
-                padding: 2rem;
-                text-align: center;
-                width: 100%;
-                z-index: 4;
-                background-color: #ffbcdb;
-                border-color: #fffacc;
-                border: solid 1px;
-            }
-        </style> --}}
     </head>
     <body>
-        {{-- @include('cookieConsent::index') --}}
         <div id="root"></div>
     </body>
 </html>

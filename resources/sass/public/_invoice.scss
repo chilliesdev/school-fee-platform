@@ -1,0 +1,49 @@
+.invoice-container {
+    max-width: 300px;
+    margin: 2rem auto;
+    width: 100%;
+
+    .watermark {
+        position: fixed;
+        margin: auto;
+        font-size: 5rem;
+        color: red;
+        border: 4px dashed red;
+        padding: 0;
+        opacity: 0.2;
+        transform: rotate(45deg);
+        top: 25%;
+        left: 37%;
+    }
+
+    h2 {
+        margin-top: 5rem;
+        text-transform: capitalize;
+        font-weight: bold;
+        font-size: 3rem;
+    }
+
+    h3 {
+        font-size: 2rem;
+        font-family: "Scada", sans-serif;
+    }
+
+    h5 {
+        text-transform: uppercase;
+        margin-top: 5rem;
+        font-weight: bold;
+    }
+
+    p {
+        text-transform: uppercase;
+        /* padding: 0; */
+        margin: 0;
+        margin-top: 1rem;
+        margin-bottom: 3px;
+    }
+
+    .email {
+        margin-top: 0;
+        text-transform: lowercase;
+    }
+}
